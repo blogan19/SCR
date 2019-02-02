@@ -1,0 +1,451 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+     <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  <style type="text/css">
+    .txt{
+      width: 100%;
+      border: solid  black 0.5px;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+
+<div class="container">
+  <textarea id="textArea" class="txt"></textarea>
+  <button type="button" class="btn btn-block btn-primary" onclick="test();disp()"> submit</button>
+</div>
+
+<div class="container">
+  <h2>Filterable List</h2>
+  <p>Type something in the input field to search the list for specific items:</p>  
+  <input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <br>
+  
+  <ul class="list-group" id="myList">  
+  </ul>  
+</div>
+
+<script type="text/javascript">
+var abxConversion = [{
+"JAC": "ACICLOVIR 200 mg Dispersible Tablets",
+"CON":"Aciclovir"},
+{"JAC": "ACICLOVIR 200 mg in 5mL Sugar Free Suspension",
+"CON":"Aciclovir"},
+{"JAC": "ACICLOVIR 250 mg Intravenous Infusion",
+"CON":"Aciclovir"},
+{"JAC": "ACICLOVIR 400 mg Dispersible Tablets",
+"CON":"Aciclovir"},
+{"JAC": "ACICLOVIR 500 mg Intravenous Infusion",
+"CON":"Aciclovir"},
+{"JAC": "ACICLOVIR 800 mg Dispersible Tablets",
+"CON":"Aciclovir"},
+{"JAC": "AMOXICILLIN 1 g Injection",
+"CON":"Amoxicillin"},
+{"JAC": "AMOXICILLIN 125 mg/5ml Sugar Free Suspension",
+"CON":"Amoxicillin"},
+{"JAC": "AMOXICILLIN 250 mg Capsules",
+"CON":"Amoxicillin"},
+{"JAC": "AMOXICILLIN 250 mg/5ml Sugar Free Suspension",
+"CON":"Amoxicillin"},
+{"JAC": "AMOXICILLIN 500 mg Capsules",
+"CON":"Amoxicillin"},
+{"JAC": "AMOXICILLIN 500 mg Injection",
+"CON":"Amoxicillin"},
+{"JAC": "AMPHOTERICIN (LIPOSOMAL) 'AMBISOME' 50 mg Infusion",
+"CON":"Amphotericin"},
+{"JAC": "AMPHOTERICIN (LIPOSOMAL) 'AMBISOME' TEST DOSE",
+"CON":"Amphotericin"},
+{"JAC": "AMPHOTERICIN B 100 mg in 1mL Oral Solution",
+"CON":"Amphotericin"},
+{"JAC": "ATOVAQUONE 750 mg/5ml Oral Suspension",
+"CON":"Atovaquone"},
+{"JAC": "AZITHROMYCIN 200 mg/5ml Oral Suspension",
+"CON":"Azithromycin"},
+{"JAC": "AZITHROMYCIN 250 mg Capsules",
+"CON":"Azithromycin"},
+{"JAC": "AZTREONAM 1 g Injection",
+"CON":"Aztreonam"},
+{"JAC": "AZTREONAM 2 g Injection",
+"CON":"Aztreonam"},
+{"JAC": "BENZYLPENICILLIN 1.2 g Injection",
+"CON":"Benzylpenicillin"},
+{"JAC": "CASPOFUNGIN 50 mg Injection",
+"CON":"Caspofungin"},
+{"JAC": "CASPOFUNGIN 70 mg Injection",
+"CON":"Caspofungin"},
+{"JAC": "CEFACLOR 250 mg Capsules",
+"CON":"Cefaclor"},
+{"JAC": "CEFACLOR 250 mg/5ml Oral Suspension",
+"CON":"Cefaclor"},
+{"JAC": "CEFACLOR 500 mg Capsules",
+"CON":"Cefaclor"},
+{"JAC": "CEFALEXIN 125 mg/5ml Oral Suspension",
+"CON":"Cefalexin"},
+{"JAC": "CEFALEXIN 250 mg Capsules",
+"CON":"Cefalexin"},
+{"JAC": "CEFALEXIN 250 mg Tablets",
+"CON":"Cefalexin"},
+{"JAC": "CEFALEXIN 250 mg/5ml Oral Suspension",
+"CON":"Cefalexin"},
+{"JAC": "CEFALEXIN 500 mg Capsules",
+"CON":"Cefalexin"},
+{"JAC": "CEFALEXIN 500 mg Tablets",
+"CON":"Cefalexin"},
+{"JAC": "CEFOTAXIME 2 g Injection",
+"CON":"Cefotaxime"},
+{"JAC": "CEFRADINE 250 mg Capsules",
+"CON":"Cefradine"},
+{"JAC": "CEFTAZIDIME 1 g Injection",
+"CON":"Ceftazidime"},
+{"JAC": "CEFTAZIDIME 2 g Injection",
+"CON":"Ceftazidime"},
+{"JAC": "CEFTRIAXONE 1g Injection",
+"CON":"Ceftriaxone"},
+{"JAC": "CEFTRIAXONE 2 g Injection",
+"CON":"Ceftriaxone"},
+{"JAC": "cefUROXime 1.5 g Injection",
+"CON":"Cefuroxime"},
+{"JAC": "cefUROXime 250 mg Injection",
+"CON":"Cefuroxime"},
+{"JAC": "CEFUROXIME 250 mg Tablets",
+"CON":"Cefuroxime"},
+{"JAC": "cefUROXime 750 mg Injection",
+"CON":"Cefuroxime"},
+{"JAC": "CHLORAMPHENICOL 1 g Injection",
+"CON":"Chloramphenicol"},
+{"JAC": "CIPROFLOXACIN 100 mg/50ml Intravenous Infusion",
+"CON":"Ciprofloxacin"},
+{"JAC": "CIPROFLOXACIN 200 mg/100ml Intravenous Infusion",
+"CON":"Ciprofloxacin"},
+{"JAC": "CIPROFLOXACIN 250 mg Tablets",
+"CON":"Ciprofloxacin"},
+{"JAC": "CIPROFLOXACIN 250 mg/5ml Oral Suspension",
+"CON":"Ciprofloxacin"},
+{"JAC": "CIPROFLOXACIN 400 mg/200ml Injection for Infusion",
+"CON":"Ciprofloxacin"},
+{"JAC": "CIPROFLOXACIN 500 mg Tablets",
+"CON":"Ciprofloxacin"},
+{"JAC": "CIPROFLOXACIN 750 mg Tablets",
+"CON":"Ciprofloxacin"},
+{"JAC": "CLARITHROMYCIN 125 mg/5ml Oral Suspension",
+"CON":"Clarithromycin"},
+{"JAC": "CLARITHROMYCIN 250 mg Tablets",
+"CON":"Clarithromycin"},
+{"JAC": "CLARITHROMYCIN 250 mg/5ml Oral Suspension",
+"CON":"Clarithromycin"},
+{"JAC": "CLARITHROMYCIN 500 mg Injection",
+"CON":"Clarithromycin"},
+{"JAC": "CLARITHROMYCIN 500 mg Tablets",
+"CON":"Clarithromycin"},
+{"JAC": "CLINDAMYCIN 150 mg Capsules",
+"CON":"Clindamycin"},
+{"JAC": "CLINDAMYCIN 600 mg/4ml Injection",
+"CON":"Clindamycin"},
+{"JAC": "CO-AMOXICLAV 1000mg/200mg Injection",
+"CON":"Co-amoxiclav"},
+{"JAC": "CO-AMOXICLAV 125mg/31.25mg in 5ml Oral Suspension",
+"CON":"Co-amoxiclav"},
+{"JAC": "CO-AMOXICLAV 250mg/125mg Tablets",
+"CON":"Co-amoxiclav"},
+{"JAC": "CO-AMOXICLAV 250mg/62.5mg in 5ml Oral Suspension",
+"CON":"Co-amoxiclav"},
+{"JAC": "CO-AMOXICLAV 400mg/57mg in 5ml Oral Suspension",
+"CON":"Co-amoxiclav"},
+{"JAC": "CO-AMOXICLAV 500mg/100mg Injection",
+"CON":"Co-amoxiclav"},
+{"JAC": "CO-AMOXICLAV 500mg/125mg Tablets",
+"CON":"Co-amoxiclav"},
+{"JAC": "COLISTIMETHATE 'COLISTIN' 1 million units Injection",
+"CON":"Colistimethate"},
+{"JAC": "CO-TRIMOXAZOLE 160mg/800mg Tablets",
+"CON":"Co-trimoxazole"},
+{"JAC": "CO-TRIMOXAZOLE 240 mg/5ml Oral Suspension",
+"CON":"Co-trimoxazole"},
+{"JAC": "CO-TRIMOXAZOLE 480 mg/5ml Injection",
+"CON":"Co-trimoxazole"},
+{"JAC": "CO-TRIMOXAZOLE 480 mg/5ml Oral Suspension",
+"CON":"Co-trimoxazole"},
+{"JAC": "CO-TRIMOXAZOLE 80mg/400mg Tablets",
+"CON":"Co-trimoxazole"},
+{"JAC": "CO-TRIMOXAZOLE480 mg/5ml Oral Suspension",
+"CON":"Co-trimoxazole"},
+{"JAC": "DALBAVANCIN 500 mg Injection",
+"CON":"Dalbavancin"},
+{"JAC": "DAPTOMYCIN 350 mg Injection",
+"CON":"Daptomycin"},
+{"JAC": "DAPTOMYCIN 500 mg Injection",
+"CON":"Daptomycin"},
+{"JAC": "DEMECLOCYCLINE 150 mg Capsules",
+"CON":"Demeclocycline"},
+{"JAC": "DEMECLOCYCLINE 150 mg Tablets",
+"CON":"Demeclocycline"},
+{"JAC": "DEMECLOCYCLINE 300 mg/5ml Suspension",
+"CON":"Demeclocycline"},
+{"JAC": "DOXYCYCLINE 100 mg Capsules",
+"CON":"Doxycycline"},
+{"JAC": "DOXYCYCLINE 100 mg Dispersible Tablets",
+"CON":"Doxycycline"},
+{"JAC": "DOXYCYCLINE 40 mg Modified Release Capsules",
+"CON":"Doxycycline"},
+{"JAC": "ERTAPENEM 1 g Injection",
+"CON":"Ertapenem"},
+{"JAC": "ERYTHROMYCIN 250 mg Tablets",
+"CON":"Erythromycin"},
+{"JAC": "ETHAMBUTOL 100 mg Tablets",
+"CON":"Ethambutol"},
+{"JAC": "ETHAMBUTOL 400 mg Tablets",
+"CON":"Ethambutol"},
+{"JAC": "FIDAXOMICIN 200 mg Tablets",
+"CON":"Fidaxomicin"},
+{"JAC": "FLUCLOXACILLIN 1 g Injection",
+"CON":"Flucloxacillin"},
+{"JAC": "FLUCLOXACILLIN 125 mg/5ml Oral Solution",
+"CON":"Flucloxacillin"},
+{"JAC": "FLUCLOXACILLIN 250 mg Capsules",
+"CON":"Flucloxacillin"},
+{"JAC": "FLUCLOXACILLIN 250 mg/5ml Oral Solution",
+"CON":"Flucloxacillin"},
+{"JAC": "FLUCLOXACILLIN 500 mg Capsules",
+"CON":"Flucloxacillin"},
+{"JAC": "FLUCLOXACILLIN 500 mg Injection",
+"CON":"Flucloxacillin"},
+{"JAC": "FLUCONAZOLE 150 mg Capsules",
+"CON":"Fluconazole"},
+{"JAC": "FLUCONAZOLE 200 mg Capsules",
+"CON":"Fluconazole"},
+{"JAC": "FLUCONAZOLE 200 mg/100mL Injection",
+"CON":"Fluconazole"},
+{"JAC": "FLUCONAZOLE 50 mg Capsules",
+"CON":"Fluconazole"},
+{"JAC": "FLUCONAZOLE 50 mg/5ml Oral Suspension",
+"CON":"Fluconazole"},
+{"JAC": "FOSCARNET SODIUM 24 mg in 1mL Infusion",
+"CON":"Foscarnet"},
+{"JAC": "FOSFOMYCIN 4 g Injection",
+"CON":"Fosfomycin"},
+{"JAC": "FOSFOMYCIN GRANULES 3 g Sachet",
+"CON":"Fosfomycin"},
+{"JAC": "FUSIDIC ACID 250 mg/5ml Oral Suspension",
+"CON":"Fusidic Acid"},
+{"JAC": "GANCICLOVIR 100 mg/100mL Intravenous Infusion",
+"CON":"Ganciclovir"},
+{"JAC": "GANCICLOVIR 150 mg/103ml Intravenous Infusion",
+"CON":"Ganciclovir"},
+{"JAC": "GANCICLOVIR 200 mg/104ml Intravenous Infusion",
+"CON":"Ganciclovir"},
+{"JAC": "GANCICLOVIR 300 mg/106ml Intravenous Infusion",
+"CON":"Ganciclovir"},
+{"JAC": "GENTAMICIN 80 mg/2ml Injection",
+"CON":"Gentamicin"},
+{"JAC": "GENTAMICIN CHART IN USE- See additional chart",
+"CON":"Gentamicin"},
+{"JAC": "ISAVUCONAZOLE 100 mg Capsules",
+"CON":"Isavuconazole"},
+{"JAC": "ISAVUCONAZOLE 200 mg Infusion",
+"CON":"Isavuconazole"},
+{"JAC": "ISONIAZID 100 mg Tablets",
+"CON":"Isoniazid"},
+{"JAC": "ISONIAZID 50 mg Tablets",
+"CON":"Isoniazid"},
+{"JAC": "ITRACONAZOLE 100 mg Capsules",
+"CON":"Itraconazole"},
+{"JAC": "ITRACONAZOLE 50 mg/5ml Oral Liquid",
+"CON":"Itraconazole"},
+{"JAC": "LEVOFLOXACIN 250 mg Tablets",
+"CON":"Levofloxacin"},
+{"JAC": "LEVOFLOXACIN 500 mg Tablets",
+"CON":"Levofloxacin"},
+{"JAC": "LEVOFLOXACIN 500 mg/100mL Injection for Infusion",
+"CON":"Levofloxacin"},
+{"JAC": "LINEZOLID 100 mg/5ml Oral Suspension",
+"CON":"Linezolid"},
+{"JAC": "LINEZOLID 600 mg Tablets",
+"CON":"Linezolid"},
+{"JAC": "LINEZOLID 600 mg/300ml Injection",
+"CON":"Linezolid"},
+{"JAC": "LYMECYCLINE 408 mg Capsules",
+"CON":"Lymecycline"},
+{"JAC": "MEROPENEM 1 g Injection",
+"CON":"Meropenem"},
+{"JAC": "MEROPENEM 500 mg Injection",
+"CON":"Meropenem"},
+{"JAC": "MEROPENEM ELASTOMERIC 1g/100mL Intravenous Infusion",
+"CON":"Meropenem"},
+{"JAC": "METRONIDAZOLE 200 mg Tablets",
+"CON":"Metronidazole"},
+{"JAC": "METRONIDAZOLE 200 mg/5ml Oral Suspension",
+"CON":"Metronidazole"},
+{"JAC": "METRONIDAZOLE 400 mg Tablets",
+"CON":"Metronidazole"},
+{"JAC": "METRONIDAZOLE 500 mg/100ml Injection",
+"CON":"Metronidazole"},
+{"JAC": "MINOCYCLINE 100 mg Modified Release Capsules",
+"CON":"Minocycline"},
+{"JAC": "MINOCYCLINE 50 mg Tablets",
+"CON":"Minocycline"},
+{"JAC": "MOXIFLOXACIN 400 mg Tablets",
+"CON":"Moxifloxacin"},
+{"JAC": "NITROFURANTOIN 100 mg Modified Release Capsules",
+"CON":"Nitrofurantoin"},
+{"JAC": "NITROFURANTOIN 100 mg Tablets",
+"CON":"Nitrofurantoin"},
+{"JAC": "NITROFURANTOIN 25 mg/5ml Oral Suspension",
+"CON":"Nitrofurantoin"},
+{"JAC": "OXYTETRACYCLINE 250 mg Tablets",
+"CON":"Oxytetracycline"},
+{"JAC": "PHENOXYMETHYLPENICILLIN 250 mg Tablets",
+"CON":"Phenoxymethylpenicillin"},
+{"JAC": "PHENOXYMETHYLPENICILLIN 250 mg/5ml Oral Solution Sugar Free",
+"CON":"Phenoxymethylpenicillin"},
+{"JAC": "PIPERACILLIN / TAZOBACTAM 18 g Elastomeric Infusion",
+"CON":"Piperacillin/Tazobactam"},
+{"JAC": "PIPERACILLIN 4g / TAZOBACTAM 500mg Injection",
+"CON":"Piperacillin/Tazobactam"},
+{"JAC": "PIVMECILLINAM 200 mg Tablets",
+"CON":"Pivmecillinam"},
+{"JAC": "POSACONAZOLE 100 mg Gastro-resistant Tablets",
+"CON":"Posaconazole"},
+{"JAC": "POSACONAZOLE 300 mg Injection",
+"CON":"Posaconazole"},
+{"JAC": "POSACONAZOLE 40 mg/ml Oral Suspension",
+"CON":"Posaconazole"},
+{"JAC": "PYRAZINAMIDE 500 mg Tablets",
+"CON":"Pyrazinamide"},
+{"JAC": "RIFAMPICIN 100 mg/5ml Oral Suspension",
+"CON":"Rifampicin"},
+{"JAC": "RIFAMPICIN 150 mg Capsules",
+"CON":"Rifampicin"},
+{"JAC": "RIFAMPICIN 150mg / ISONIAZID 100mg 'RIFINAH' Tablets",
+"CON":"Rifampicin"},
+{"JAC": "RIFAMPICIN 300 mg Capsules",
+"CON":"Rifampicin"},
+{"JAC": "RIFAMPICIN 300mg / ISONIAZID 150mg 'RIFINAH' Tablets",
+"CON":"Rifampicin"},
+{"JAC": "RIFAMPICIN 600 mg Injection for Infusion",
+"CON":"Rifampicin"},
+{"JAC": "RIFAXIMIN 550 mg Tablets",
+"CON":"Rifaximin"},
+{"JAC": "SODIUM FUSIDATE 250 mg Tablets",
+"CON":"Fusidic Acid"},
+{"JAC": "SULFADIAZINE 500 mg Tablets",
+"CON":"Sulfadiazine"},
+{"JAC": "TEICOPLANIN 200 mg Injection",
+"CON":"Teicoplanin"},
+{"JAC": "TEICOPLANIN 400 mg Injection",
+"CON":"Teicoplanin"},
+{"JAC": "TEMOCILLIN 1 g Injection",
+"CON":"Temocillin"},
+{"JAC": "TERBINAFINE 250 mg Tablets",
+"CON":"Terbinafine"},
+{"JAC": "TETRACYCLINE 250 mg Tablets",
+"CON":"Tetracycline"},
+{"JAC": "TIGECYCLINE 50 mg Injection",
+"CON":"Tigecycline"},
+{"JAC": "TRIMETHOPRIM 100 mg Tablets",
+"CON":"Trimethoprim"},
+{"JAC": "TRIMETHOPRIM 200 mg Tablets",
+"CON":"Trimethoprim"},
+{"JAC": "TRIMETHOPRIM 50 mg/5ml Sugar Free Suspension",
+"CON":"Trimethoprim"},
+{"JAC": "VALACICLOVIR 500 mg Tablets",
+"CON":"Valaciclovir"},
+{"JAC": "VANCOMYCIN 125 mg Capsules",
+"CON":"Vancomycin"},
+{"JAC": "VANCOMYCIN 250 mg Capsules",
+"CON":"Vancomycin"},
+{"JAC": "VANCOMYCIN CHART IN USE- See additional chart",
+"CON":"Vancomycin"},
+{"JAC": "VANCOMYCIN FOR ENTERAL USE (C.DIFF ALGORITHM) Solution",
+"CON":"Vancomycin"},
+{"JAC": "VANCOMYCIN in Sodium Chloride 0.9% Infusion",
+"CON":"Vancomycin"},
+{"JAC": "VORICONAZOLE 200 mg Tablets",
+"CON":"voriconazole"},
+{"JAC": "VORICONAZOLE 200 mg/5ml Oral Suspension",
+"CON":"voriconazole"},
+{"JAC": "VORICONAZOLE 50 mg Tablets",
+"CON":"voriconazole"},
+{"JAC": "VORICONAZOLE 'VFEND' 200 mg Injection",
+"CON":"voriconazole"},
+{"JAC": "ZANAMIVIR 5 mg Dry Powder For Inhalation",
+"CON":"Zanamivir"}];
+
+var arr = [];
+function test(){
+	var splitted = $('#textArea').val().split("\n");  
+ 
+    for(i=0; i <splitted.length; i++){
+       var a = splitted[i];
+       var b = a.split(','); 
+       arr.push(b);
+    }
+    console.log(arr);  
+   
+}
+function disp(){
+
+
+
+  var str =""; 
+  for(i=0; i < arr.length; i++){
+     var abx = arr[i][5];
+     console.log(abxConversion.length)
+     for(x=0; x <abxConversion.length; x++){
+      if(abxConversion[x].JAC == abx) {
+            abx = abxConversion[x].CON;
+        }
+    }  
+     str += '<li class="list-group-item"><div class="row"><div class="col-xs-4"><h4>'+ arr[i][0] + '('+ arr[i][1] + ')' +'<h4></div><div class="col-xs-4"><h4>'+arr[i][2]+ '</h4></div><div class="col-xs-4"><h4>'+ arr[i][4] + ', ' + arr[i][3] +'</h4></div></div><div class="row"><div class="col-xs-12"><h4>'+ abx+' '+arr[i][6] +'' +arr[i][7]+' '+arr[i][8]+' '+arr[i][9] +'</h4></div></div><div class="row"><hr><div class="col-xs-12"><label class="checkbox-inline"><input type="checkbox" value="ICM" id="ICMchk'+i+'">ICM</label><label class="checkbox-inline"><input type="checkbox" value="ICC" id="ICCChk'+i+'">ICC</label><label class="checkbox-inline"><input type="checkbox" value="PTP" id="PTPChk'+i+'">PTP</label><label class="checkbox-inline"><input type="checkbox" value="VRE" id="VREChk'+i+'">VRE</label><label class="checkbox-inline"><input type="checkbox" value="MDRPSA" id="MDRPSAChk'+i+'">MDRPSA</label></div></li>';
+  }
+  
+  console.log(str);
+  document.getElementById('myList').innerHTML = str;
+}
+
+
+
+
+
+function exportData(){
+  //function to convert abx to 
+ for(x=0; i <abxConversion.length; x++){
+      if(abxConversion[x].JAC === abx) {
+            abx = abxConversion[i].CON;
+        }
+    }
+
+}
+
+
+
+
+
+//search function
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+
+
+</script>
+</body>
+</html>
+
+
