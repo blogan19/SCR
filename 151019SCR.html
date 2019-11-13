@@ -1,0 +1,1153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>SCR Tool</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/intro.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs-rtl.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs-rtl.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.9.3/introjs.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+
+
+  <style type="text/css">
+    *{
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  	.invis{
+  		display: none;
+  	}
+  
+    .btn{
+      margin-top: 20px;
+    }
+    input[type="checkbox"]{
+      outline:2px solid #457fca ;
+      outline-offset: -2px;
+    }
+    .btnBlue{
+      background: linear-gradient(to right, #457fca , #5691c8);
+      color: white;
+      margin-top: 10px;
+      height: 40px;
+      border-radius: 5px;
+    }
+    .txtBlue{
+      color: #457fca;
+    }
+    #btnOTC{
+      text-align: left;
+      height: auto;
+    }
+    .btnNav{
+      float: right;
+      margin-right: 20px;
+      margin-top: 10px;
+      background: #ffffff;
+      color:  #457fca;
+      height: 30px;
+    }
+    .btnNav:hover{
+      background: none;
+      color: #ffffff;
+    }
+   
+    .acuteR{
+      display: none;
+    }
+    .acuteR + label{
+      border-radius: 5px;
+      padding: 1px;
+      width: 100px;
+      margin-left: 5px;
+      text-align: center;
+      background-color: #337AB7;
+    }
+    .acuteR:checked + label{
+      background-color: #fff;
+      color: #337AB7;
+    }
+  	.txt30{
+  		font-size: 30px;
+  		margin-right: 20px;
+  	}
+    #noteCopy{
+      margin-top: 50px;
+    }
+    .margTop{
+      margin-top: 20px;
+    }    
+    .customAlert{
+      background: linear-gradient(to right, #457fca , #5691c8);
+      background-color: #337AB7;
+      color: white;
+    }
+    .customAlert2{
+      background-color: #fafafa;
+      border: solid #457fca 0.5px;
+      text-align: center;
+    }
+   
+    .lists{
+      font-size: 16px;
+    }
+    .active{
+      background: linear-gradient(to right, #457fca , #5691c8);
+    }
+    .infoSign{
+      float: right;
+      margin-top: 10px;
+      margin-right: 10px;
+      
+    }
+    .infoSign:hover{
+      color: #457fca;
+      background-color: #ffffff;
+      border-radius: 50px;
+    }
+    .lblNotRx{
+      opacity: 0.8;
+      font-size: 10px;
+    }
+    @media screen {
+    #printSection {
+        display: none;
+    }
+  }
+
+  @media print {
+    body * {
+      visibility:hidden;
+    }
+    #printSection, #printSection * {
+      visibility:visible;
+    }
+    #printSection {
+      position:absolute;
+      left:0;
+      top:0;
+    }
+  }
+  
+
+       
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-default customAlert">
+        <div class="container-fluid"> 
+          <div class="navbar-header txt30" style="width: 100%; height: 100%;">
+            Summary Care Record Tool 
+            <span class="glyphicon glyphicon-info-sign infoSign" data-toggle="modal" data-target="#myModal"></span>
+           
+            <a class="btn btn-large btnNav invis" id="tutorialBtn" href="javascript:void(0);" onclick="javascript:introJs().start();tutorial()"> How to guide <i class="fas fa-info"></i></a>
+            <button type="button" class="btn btnNav" id="tutorialModalBtn" data-toggle="modal" data-target="#tutorialModal">How to guide <i class="fas fa-info"></i></button>
+            <button type="button" class="btn btnNav" id="btnSCRModal" data-toggle="modal" data-target="#scrModal">View Copied SCR</button>
+            <a href="https://portal2.national.ncrs.nhs.uk/summarycarerecord/patientsearch" data-toggle="tooltip" title="Opens in new tab" target="_blank"><button type="button" class="btn btnNav">Summary Care Record Website</button></a>
+          </div>
+        </div>
+  </nav>
+
+ 
+<div id="scrModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Copied SCR</h4>
+      </div>
+      <div class="modal-body" id="scrModalContent">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container" id="cont1"> 
+      <br> 
+        <div class="alert alert-info"> Please note that for the best results the SCR tool should be used in Google Chrome </div>
+        <h2>Copy and Paste Here:</h2>
+    	  <label for="comment">Copy and Paste the Patients Summary Care Record into the textbox below:</label>
+  	 
+      <textarea class="form-control" autocomplete="off" rows="10" id="input" oninput="checkSCR()"></textarea>
+      
+  	</div>
+</div>
+
+<!-- Button to Open the Modal -->
+
+<!-- The Modal -->
+<div class="modal" id="tutorialModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">How to copy an SCR</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      Access the SCR
+    </div>
+    <div class="carousel-item">
+      Ctrl-A 
+      or Right click Select All
+      Make sure you don't close the left window
+    </div>
+    <div class="carousel-item">
+      Paste the SCR into the the box 
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+
+</div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container invis" id="cont4">
+  <br>
+  <div class="alert alert-success" id="alertSuccess">
+        <strong>Success!</strong> SCR copied correctly</a>
+  </div>
+  <div class="alert alert-info"><button type="button" class="close" data-dismiss="alert">&times;</button><b>Use the section below to select the medications you wish to include in the note. Ensure that all medications have accurately copied across from Summary Care</b></div>
+
+  <div id="alList" data-step="1" data-intro="Allergies will automatically be placed here. These can be edited on the next page" class="alert alert-danger"> 
+  </div>
+    <hr> 
+        <div class="input-group mb-3 input-group-sm">
+          <div class="input-group-prepend" data-step="2" data-intro="Add any OTC/herbal/Recreational drugs here">
+            <span class="input-group-text" >OTC/Herbal/Recreational</span>
+          </div>
+          <input type="text" class="form-control"id="OTCtxt">
+        </div>
+    <hr>
+    <ul id="acutesList" class="list-group" data-step="3" data-intro="Acutes will be displayed here. Depedning on the format of the patients SCR you can select whether you want to see the past 3, 6, 9 months or all of the acutes. Some SCR's will show all of the acutes by default <br/> Select which acutes you would like to include by clicking on them">
+      <li class="list-group-item active">
+        <h2>Acute Medications</h2> 
+        <hr>
+        <div class="form-check-inline"><span id="acuteDurationDisp">Show for acutes for the past:</span> <input type="radio" class="form-check-input acuteR" name="mnthradio" id="r3m" onclick="date(3)" checked><label class="form-check-label acuteLbl" for="r3m" id="labelR3">3 months</label><input type="radio" class="form-check-input acuteR" name="mnthradio" id="r6m" onclick="date(6)"><label class="form-check-label acuteLbl" for="r6m" id="labelR6">6 months</label><input type="radio" class="form-check-input acuteR" name="mnthradio" id="r9m" onclick="date(9)"><label class="form-check-label acuteLbl" for="r9m" id="labelR9">9 months</label><input type="radio" class="form-check-input acuteR" name="mnthradio" id="rAm" onclick="date(0)"><label class="form-check-label acuteLbl" for="rAm">All acutes</label></div>
+      </li>
+      <div id="aList" class="lists"></div>
+    </ul>
+  	
+    <hr>
+  	<div id="rList" class="lists" data-step="4" data-intro="Repeats are displayed here. All of the acutes will be pre-selected by default. <br/> You may wish to click the not prescribed box at this point. This is not mandatory"></div>
+    <hr>
+  	<div id="dList" class="lists" data-step="5" data-intro="Discontinued items will be displayed here"></div>
+    <button type="button" id="continueIntro" class="btn btn-primary btn-block invis" onclick="continueIntro();userConfirm();">Continue Tutorial</button>
+  	<button type="button" id="btn2" class="btn btn-primary btn-block " onclick="userConfirm();" data-step="6" data-intro="Once you have finished choosing which items to include in your drug history note click the 'next' button <br/> Always ensure all of the medications from SCR have been copied across properly before proceeding <br/><br/> <h1>Press the Next Button to continue tutorial</h1>">Next</button>
+    <hr>
+  </div>
+</div>
+
+<div class="container invis" id="cont5">
+  <br/>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+          <h4 class="txtBlue">Patient Details</h4>
+      </div>
+      <div class="col-sm-4" >
+          <span id="step1">Blister Pack:</span>
+          <label class="radio-inline"><input type="radio" name="optradio" onclick="blisterPack('yes')">Yes</label>
+          <label class="radio-inline"><input type="radio" name="optradio" onclick="blisterPack('no')">No</label>
+      </div>
+      <div class="col-sm-4">
+        <div class="input-group" id="step2">
+          <button type="button" class="btn btnBlue" onclick="generatePharmacyList()" data-toggle="modal" data-target="#pharmacyModal" >Add Pharmacy Details</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <br>
+  <div class="checkbox" id="step3">
+              <label class="checkbox" for="noDatechk"><input type="checkbox" autocomplete="off" id="noDatechk" onclick="createNote()">&nbsp;Remove the dates from the repeat medications list (Note this will reset any ammendments you have made to the note below)</label>
+  </div>
+  <h4 class="txtBlue"> Use this box to edit your note:</h4>
+  <div id="step4">
+  <div id="noteCopy" class="jumbotron clickable" contenteditable="true">
+      <div>Sources Used: </div>
+      <div id="outputAllergies"></div>
+      <div id="outputAcutes"></div>
+      <div id="outputRepeats"></div>
+      <div id="outputDisc"></div>
+      <div id="outputOTC"></div>
+      <div id="pharmacyDetails"></div>
+      <div id="blisterpack"></div>
+      <div>Patients supply at home: </div>
+      <div>Additional Information:</div>
+ </div>
+ </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="btn-group">
+          <button type="button" class="btn btnBlue" onclick="back()"><span class="glyphicon glyphicon-chevron-left"></span>Back</button>
+          <span id="step5"><button type="button" class="btn btnBlue"onclick="copyToClipboard('noteCopy')" data-toggle="tooltip" title="Copies note to clipboard" target="_blank" id="copyToClipboardBtn">Copy Note&nbsp;<span class="glyphicon glyphicon-copy" style="float: right;" ></span></button></span>
+          <button type="button" class="btn btnBlue" onclick="reset()" data-toggle="tooltip" title="Refreshes the app and erases the current record" id="step6" target="_blank">Enter New SCR</button>
+          <button type="button" class="btn btnBlue" onclick="doctorsNote()" data-toggle="modal" data-target="#doctorsJobModal" data-toggle="tooltip" title="Creates a Doctors to do list" target="_blank" id="step7">Doctors Jobs</button>
+          <button type="button" class="btn btnBlue" data-toggle="modal" data-target="#printModal" onclick="printNote()" id="step8">Print note</button>
+          
+        </div>
+      </div>
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-2">
+      </div>
+    </div>
+  </div> 
+</div>
+
+<div id="printThis">
+<div id="printModal" class="modal fade" role="dialog">
+  <div class="modal-dialog mw-100 w-75">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Print</h4>
+      </div>
+      <div class="modal-body">
+       <table class="table table-bordered" id="printTable"></table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btnBlue" id="sendToPrint">Print</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="doctorsJobModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Doctors Jobs List</h4>
+      </div>
+      <div class="modal-body">
+        <div class="jumbotron">
+          <div class="jumbotron" contenteditable="true" id="doctorsJobsList"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="pharmacyModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="input-field col s12">
+           <div class="input-field col s12">
+         
+           <input class="form-control" id="pharmacyInput" type="text" placeholder="Search pharmacies..">
+          <br>
+          <ul class="list-group" id="pharmacyList">
+          </ul>  
+       
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+                  
+<script type="text/javascript">
+ introJs().setOption("exitOnOverlayClick", true); 
+ function tutorial(){
+  document.getElementById("continueIntro").style.display = "block";
+  document.getElementById("btn2").innerHTML = "Next (Skip rest of tutorial)"
+ }
+  function continueIntro(){
+        var intro = introJs();
+          intro.setOptions({
+            steps: [
+              {
+                element: '#step1',
+                intro: 'Select whether the patient is a blister pack using the blister pack options'
+              },
+              {
+                element: '#step2',
+                intro: "Pharmacy details can be added through this option <br/> If the pharmacy you need is not in the list it can be manually typed into the note below"
+              },
+              {
+                element: '#step3',
+                intro: 'This option will remove the dates from the repeat list and then put the repeats in date order. </br> This may be useful for checking EPMA against the repeats list <br/> Please note that this button must be clicked before editing any text in the grey box'
+              },{
+                element: '#step4',
+                intro: 'This box can be used to edit the note to add/remove any information'
+              },
+              {
+                element: '#step5',
+                intro: "This button will copy your note for you which you can then paste into a note on EPMA. This button will only work in Google Chrome. <br/> Alternatively you can Select the text in the box to copy it"
+              },
+              {
+                element: '#step6',
+                intro: 'This will refresh the page to start a new drug history'
+              },{
+                element: '#step7',
+                intro: 'If you have selected not prescribed on the previous page this button will generate a doctors jobs list'
+              },{
+                element: '#step8',
+                intro: 'This button will allow you to print the patient medications list'
+              }
+            ]
+          });
+
+          intro.start();
+      }
+ 
+allergies = [];
+acutes = [];
+acuteM = [];
+acuteEdit = [];
+repeats = [];
+repeatEdit = [];
+discontinued = [];
+discontinuedEdit = [];
+arrayNP = [];
+arrayAcuteNP = [];
+
+var isDateCorrect, noAcutes;
+window.onload = function(){
+  document.getElementById('input').value = "";
+  document.getElementById('noDatechk').checked = false;
+}
+
+function checkSCR(){
+	//checks an SCR has been submitted to the textbox by searching for certain key phrases
+  
+	var txt = document.getElementById('input').value;
+  console.log(txt);
+  document.getElementById('scrModalContent').innerText= txt;
+	
+	var r1 = new RegExp("General Practice Summary");
+	var r2 = new RegExp("Summary Sent");
+	var t1 = (r1).test(txt);
+	var t2 = (r2).test(txt);
+  
+	if(t1+t2 === 2){
+    successAlert();
+  		getAllergies();
+  		getSCR();			
+  		date(3);
+	}else if(t1+t2 != 5){
+    var confirmSCR = confirm("This doesn't look like the whole SCR. Have you copied the entire SCR? (click ok to confirm)");
+    if(confirmSCR == true){
+          document.getElementById('btnSCRModal').style.display = "block";
+          successAlert();
+          getAllergies();
+          getSCR();     
+          date(3);          
+    } 
+	}	
+}
+
+function successAlert(){
+    setTimeout(function(){ 
+      document.getElementById('alertSuccess').style.display = "none";
+    }, 3000);
+    document.getElementById('tutorialModalBtn').style.display = "none";
+    document.getElementById('tutorialBtn').style.display = "block";
+}
+
+
+function getAllergies(){
+
+  var txt = document.getElementById('input').value;
+  var beginAl = txt.search("Severity");
+  var alTxt = txt.substr(beginAl);  
+  var endAl = alTxt.search("Acute Medications");
+  alTxt = alTxt.substring(0, endAl);
+  //allergies.push(alTxt);
+  var alPos = [];
+  
+  var re = /\d{2}([-])\w{3}([-])\d{4}/g;
+  while ((match = re.exec(alTxt)) != null) {
+    alPos.push(match.index);
+  }
+  for(i=0; i< alPos.length; i++){
+    var alls = alTxt.slice(alPos[i], alPos[i+1]);
+    allergies.push(alls);
+  };
+}
+
+function getSCR(){
+  
+    var txt = document.getElementById('input').value
+    
+    //acutes section
+    var beginAcute = txt.search("Acute Medications");
+    var a = txt.substr(beginAcute);
+    beginAcute = txt.search("Acute Medications");
+    a = txt.substr(beginAcute);
+ 
+    var noRepeats;
+    var endAcute = txt.search("Repeat Medication ");
+    if(endAcute == -1){
+      endAcute = txt.search("Summary Sent");
+      noRepeats = true;
+    }
+    
+    a = txt.substring(beginAcute, endAcute);
+    /*a = section of just acutes which is cut at second instance of "Acute Medication" and next instance of "repeat mediction last issued" after this*/
+
+    if(endAcute == -1){
+      //if repeat medications not present i.e. = -1 then searches for discontinued
+      a = txt.substr(beginAcute);
+      var aEnd = a.search("Discontinued Repeat Medications");
+      a = a.substring(-1, aEnd);
+    }
+    if(noRepeats == true){
+      var aNoRepeats = txt.search("Acute Medication Prescribed:");
+      a = a.substring(-1, aNoRepeats)
+    }
+    //remove common unneccessary phrases 
+    a = a.replace("Type Date Medication Item Dosage Instructions Quantity "," ");
+    a = a.replace("Current Repeat Medications"," ");
+    a = a.replace("Type Date Medication Item Dosage Instructions Quantity No relevant information available for this category")
+    //position of each findAcute or findAcute elsewhere is pushed to aPos
+    var aPos = [];
+    var findAcute = "Acute Medication Prescribed:";
+    var findAcuteElsewhere = "Prescribed Elsewhere Entered:";
+    var findPostAcute = "Post-Dated Acute";
+    noAcutes = a.search("No relevant information available for this category");
+
+    for(i=0;i < a.length; i++){
+      if (a.substring(i, i + findAcute.length) == findAcute || a.substring(i, i + findAcuteElsewhere.length) == findAcuteElsewhere || a.substring(i, i + findPostAcute.length) == findPostAcute){
+        aPos.push(i);
+      }
+    };//finds position of each word acute
+
+    for(i=0; i< aPos.length; i++){
+      var b = a.slice(aPos[i], aPos[i+1]);//slices string at positions defined in aPos and removes unnecessary phrases
+      b = b.replace("Acute Medication Prescribed:", " ");
+      b = b.replace("Reason for Medication: Medication linked to a problem that is not included in the SCR", " ");
+      acutes.push(b);
+    }; 
+
+
+    //repeats Section
+    var r = txt.substr(beginAcute);//remove everything pre-repeats section of SCR so just have repeats+discontinued
+    var allSearch = r.search("Allergies and Adverse Reactions");
+    r = r.substr(allSearch);
+    var currentRepeat = r.search("Current Repeat Medications")
+    r = r.substr(currentRepeat);
+    console.log(r)
+    var d = r;
+    var endOfRepeats = r.search("Discontinued");//end of repeat section is where discontinued start
+    r = r.substring(0, endOfRepeats);
+    r = r.replace('Current Repeat Medications',' ');
+    // variables below allow us to search for different types of supplied repeats
+    var findRepeat = "Repeat Medication";
+    var findPrescribedElsewhere = "Prescribed Elsewhere Entered:";
+    var findRptDispense = "Repeat Dispense Authorised:";
+    var findRptDispense2 = "Repeat Dispense";
+
+
+
+    /*
+      The array below finds numberical value of positions of our searched words above and pushes them to the rPos array 
+      We then use these positions to slice the string r into separate prescriptions
+    */
+    var rPos= [];
+    for(i=0; i<r.length; i++){
+      if(r.substring(i, i + findRepeat.length) == findRepeat || r.substring(i, i + findPrescribedElsewhere.length) == findPrescribedElsewhere || r.substring(i, i + findRptDispense.length) == findRptDispense || r.substring(i, i + findRptDispense2.length) == findRptDispense2){
+        rPos.push(i);
+      }
+    }
+    
+    //slices the array at positions defined in rPos array and stores them in repeats array
+    for(i=0; i < rPos.length; i++){
+      var b = r.slice(rPos[i], rPos[i+1]);
+      b = b.replace("Repeat Medication Last Issued:"," ");//remove common phrases from section
+      b = b.replace("Repeat Medications Type Date Medication Item Dosage Instructions Quantity");
+      b = b.replace("Reason for Medication: Medication linked to a problem that is not included in the SCR"," ");
+
+      repeats.push(b);
+    };
+
+    //discontinued meds section
+    //Everything before discontinued items is now removed
+    var dStart = d.search("Discontinued Repeat Medications");
+    d = d.substr(dStart);
+    console.log(d);
+    var type = d.search("Type");
+    var sumSent = d.search('Summary Sent:');
+    d = d.substring(type,sumSent);
+   
+    //remove uneccessary phrases
+    d = d.replace('Type Date Medication Item Dosage Instructions Quantity',' ');
+    d = d.replace('Reason for Medication: Medication linked to a problem that is not included in the SCR',' ');
+
+    //Some SCRS are enhanced and have an extra section which starts with either Risks to patient or Diagnoses. This removes these parts
+    var risktoPatient = d.search('Risks to Patient');
+    var  Diagnosis = d.search('Diagnoses');
+      if(risktoPatient != -1){
+        d = d.substring(0,risktoPatient);
+      }else if(Diagnosis != -1){
+      	d = d.substring(0,Diagnosis)
+      }
+    
+    
+
+
+
+
+    var dPos = [];
+    var findDisc = "Repeat Medication";
+    var findRDDisc = "Repeat Dispense Authorised:"
+    //loops through string finding each position of Repeat medication 
+    for(i=0; i<d.length; i++){
+      if(d.substring(i, i + findDisc.length) == findDisc || d.substring(i, i + findRDDisc.length)== findRDDisc){
+        dPos.push(i);
+      }
+    }
+    //slices the string at each position of Repeat medication and pushes it to array dPos
+    for(i=0; i<dPos.length; i++){
+    	var c = d.slice(dPos[i], dPos[i+1]);
+    	c = c.replace("Repeat Medication Last Issued:"," ");
+
+    	discontinued.push(c);
+    }  
+}
+function date(t){
+/*
+  format of SCR date = dd-mmm-yyyy (13 characters including blanks) function takes the first 13 charcters and removes blanks and -
+  This is then converted to a digit which is used to count days. i.e. for 3  months the past 90 days will be shown. (uses 01-00-0000 as a reference date)
+  date count increases by 1 everytime a date is matched. If this matches number of acutes then function passes
+
+  If the function fails it will call display function with 'dateIncorrect' which ensures all dates are displayed as default
+  Not neccessary to function of the tool but a nice feature
+*/
+  acuteM = [];
+  var months = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
+  var avg = 365/12 //average days per month
+  var length;
+  var dateCount =0;
+  if(t>0){
+    length = t*avg;
+  }else if(t == 0){
+	length = 100000;
+  }
+  var monthChk = 0;
+  for(i=0; i<acutes.length; i++){
+    var dt = acutes[i]; 
+    dt = dt.slice(0,13)//first 13 values should be date
+    dt =dt.replace(/\s/g,' ');//removes blank spaces leaving dd/mmm/yy
+    var d = dt.replace(/\D/g,' ');
+    d = d.slice(0,4);
+    d = d.replace(/\s/g,'');
+    d = parseInt(d);
+    var m = dt.replace(/\d/g,' ');
+    m = m.replace(/\W/g,' ');
+    m = m.replace(/\s/g,'');
+    m = m.toLowerCase();
+    var month = months.indexOf(m)+1;//e.g. jan position 0 in array +1 to get month
+    
+    if(month == 0){
+      monthChk++;
+    }
+    var y = dt.replace(/\D/g,' ');
+    y = y.slice(4, y.length);
+    y = y.replace(/\s/g,'');
+    var dateC =  (((y-2000)*365) + (avg*month) + d).toFixed(0);// counts days since 00-00-0000 for acute
+    
+    var date = new Date();
+    var dd = date.getDate();
+    var mm = date.getMonth()+1;
+    var yy = date.getFullYear();
+    
+    var dateT = (((yy-2000)*365) + (avg*mm) + dd).toFixed(0); //counts days since 2000 from todays date
+    var dateDif = dateT - dateC;
+    if(dateDif < length){
+      acuteM.push(acutes[i]);
+    }
+    if(isNaN(dateDif) == false){
+        dateCount = dateCount +1;
+      }
+  } 
+     if(dateCount != acutes.length || monthChk > 0){
+      display('dateIncorrect');
+      isDateCorrect = false;
+      liColour();
+     }else if(dateCount == acutes.length){
+      display('dateCorrect');
+      isDateCorrect = true;
+      liColour();
+     }
+
+}
+
+function display(dateCorrect){
+//Get rid of input box
+document.getElementById('cont1').style.display = "none";
+document.getElementById('cont4').style.display = "block";
+if(dateCorrect == "dateCorrect"){
+  isDateCorrect = true;
+}else{
+  isDateCorrect = false;
+}
+
+
+var allergyBullet = '<ul>'
+for(i=0; i<allergies.length; i++){
+  allergyBullet += '<li>'+allergies[i]+'</li>';
+}
+allergyBullet += '</ul>'
+if(allergies.length > 0){
+  document.getElementById('alList').innerHTML = "<h2>Allergies</h2>" + allergyBullet;
+}else if(allergies.length == 0){
+   document.getElementById('alList').innerHTML ="<h2>No Known Drug Allergies Found</h2><br> <h5> Confirm with patient</h5>";
+}
+
+var acuteBullet = '<ul id="acuteList" class="list-group">'
+
+  //checks if getSCR has recognised dates of acutes else displays all acutes by default
+    if(dateCorrect == "dateCorrect"){
+      for(i=0; i < acuteM.length; i++){
+      acuteBullet += '<li class="list-group-item" id="aLi'+i+'"><label for="acuteChk'+i+'" onclick="liColour()" class="acuteLabel"><input type="checkbox" id="acuteChk'+i+'" class="chk" value="'+acuteM[i]+'">&nbsp;'+ acuteM[i]+ '</label><label class="lblNotRx">&nbsp; Not Prescribed &nbsp;<input type="checkbox" id="acutechkNP'+i+'"></label></li>';  
+      };
+      acuteBullet += '</ul>'
+    }else if(dateCorrect == "dateIncorrect"){
+      //displays all acutes if dates hasn't worked
+      document.getElementById('labelR9').style.display = "none";
+      document.getElementById('labelR6').style.display = "none";
+      document.getElementById('labelR3').style.display = "none";
+      document.getElementById('acuteDurationDisp').innerHTML = "<h3>All acutes shown by default</h3>";
+	   
+        for(i=0; i < acutes.length; i++){
+        acuteBullet += '<li class="list-group-item" id="aLi'+i+'"><label for="acuteChk'+i+'" onclick="liColour()" class="acuteLabel"><input type="checkbox" id="acuteChk'+i+'" class="chk" value="'+acutes[i]+'">&nbsp;'+ acutes[i]+ '</label><label class="lblNotRx">&nbsp; Not Prescribed &nbsp;<input type="checkbox" id="acutechkNP'+i+'"></label></li>';  
+         };
+
+      acuteBullet += '</ul>'
+    }
+    
+  var list = document.getElementById('aList');
+      if(acuteM.length == 0 && acutes.length == 0 && noAcutes > 0){
+        list.innerHTML = "No recent Acutes Found. Make sure you cross-check with patients SCR to confirm this is correct";
+      }else{
+        list.innerHTML = acuteBullet;
+  };
+  var repeatBullet = '<ul id="repeatList" class="list-group"><li class="list-group-item active"><h2>Repeat Medications</h2></li>'
+      for(i=0; i < repeats.length; i++){
+        var repeat = repeats[i];
+        //var repeat = repeats[i].substr(13);
+        repeatBullet += '<li class="list-group-item" id="rLi'+i+'"><label for="repeatChk'+i+'" onclick="liColour()" class="chkLabel"><input type="checkbox" checked id="repeatChk'+i+'" class="chk" value="'+repeat+'">&nbsp;'+ repeats[i]+ '</label><br>&nbsp; Not Prescribed &nbsp;<input type="checkbox" id="chkNP'+i+'"></label></li>';  
+      };
+      repeatBullet += '</ul>'
+  
+  var rlist = document.getElementById('rList');
+      if(repeats.length == 0){
+        rlist.innerHTML = "No regular medications found. Make sure you cross-check with patients SCR to confirm this is correct";
+      }else{
+        rlist.innerHTML = repeatBullet;
+    };
+
+  var discontBullet = '<ul id="discontList" class="list-group"><li class="list-group-item active"><h2>Discontinued Medications</h2></li>'
+      for(i=0; i < discontinued.length; i++){
+        discontBullet += '<li class="list-group-item" id="dLi'+i+'"><label for="discChk'+i+'" onclick="liColour()" class="chkLabel"><input type="checkbox" id="discChk'+i+'" class="chk" value="'+discontinued[i]+'";">&nbsp;'+ discontinued[i]+ '</label></li>';  
+      };
+      discontBullet += '</ul>'
+  var dlist = document.getElementById('dList');
+      if(discontinued.length == 0){
+        dlist.innerHTML = "No recently discontinued items found. Make sure you cross-check with patients SCR to confirm this is correct";
+      }else{
+        dlist.innerHTML = discontBullet;
+    };
+    liColour();
+}
+
+function liColour(){
+  console.log(isDateCorrect);
+  /*
+    function to change opacity of list items when selected/deselected
+    all acutes and discontinued items are greyed out by default
+  */
+  if(isDateCorrect == true){
+     for(i=0; i<acuteM.length; i++){
+    var aChk = document.getElementById("acuteChk"+i);
+    var ali = document.getElementById("aLi"+i);
+    if(aChk.checked == true){
+      ali.style.backgroundColor = "#E8DEE";
+      ali.style.opacity = 1;
+    }else if(aChk.checked == false){
+      ali.style.backgroundColor = "";
+      ali.style.opacity = 0.5;
+    }
+  }
+}else if(isDateCorrect == false){
+    for(i=0; i<acutes.length; i++){
+      var aChk = document.getElementById("acuteChk"+i);
+      var ali = document.getElementById("aLi"+i);
+      if(aChk.checked == true){
+        ali.style.backgroundColor = "#E8DEE";
+        ali.style.opacity = 1;
+      }else if(aChk.checked == false){
+        ali.style.backgroundColor = "";
+        ali.style.opacity = 0.5;
+      }
+    }
+}
+  for(i=0; i<repeats.length; i++){
+    var chk = document.getElementById("repeatChk"+i);
+    var li = document.getElementById("rLi"+i);
+    if(chk.checked == true){
+      li.style.backgroundColor = "#E8DEE";
+      li.style.opacity = 1;
+    }else if(chk.checked == false){
+      li.style.backgroundColor = "";
+      li.style.opacity = 0.5;
+    }
+  }
+  for(i=0; i<discontinued.length; i++){
+    var dChk = document.getElementById("discChk"+i);
+    var dLi = document.getElementById("dLi"+i);
+    if(dChk.checked == true){
+      dLi.style.backgroundColor = "#E8DEE";
+      dLi.style.opacity = 1;
+    }else if(dChk.checked == false){
+      dLi.style.backgroundColor = "";
+      dLi.style.opacity = 0.5;
+    }
+  } 
+}
+function displayMeds(){
+  document.getElementById('cont4').style.display = "block";
+  document.getElementById('btnDisplayMeds').style.display = "none";
+}
+function userConfirm(){
+
+  var con = confirm("Click ok to confirm that you checked that all medications have copied across correctly");
+  if(con == true){
+    editList();createNote();
+    document.getElementById('tutorialBtn').style.display = "none";
+  } 
+}
+//An array with words to be replaced 
+var fluffWords = ["(Abbott Laboratories Ltd)","(Nutricia Ltd)","Chiesi Ltd","(GlaxoSmithKline UK Ltd)","1 x 180 dose","(Dermal Laboratories Ltd)","(LEO Pharma)","(GlaxoSmithKline UK Ltd)","(Forum Health Products Ltd)","(Takeda UK Ltd)","(Qdem Pharmaceuticals Ltd)","(Boehringer Ingelheim Ltd)","(Molnlycke Health Care Ltd) ","(Ethypharm UK Ltd)","(Huxley Europe Ltd)","(Reckitt Benckiser Healthcare (UK) Ltd)","(UCB Pharma Ltd)","(Thornton & Ross Ltd)","(Aspire Pharma Ltd)","(AstraZeneca UK Ltd)","(Teva UK Ltd)","(Thea Pharmaceuticals Ltd) ","(Novartis Pharmaceuticals UK Ltd)","(Orion Pharma (UK) Ltd)","(Internis Pharmaceuticals Ltd)","(Pfizer Ltd)","(Disposable Medical Equipment Ltd)","(Morningside Healthcare Ltd)","(Napp Pharmaceuticals Ltd)","(Galen Ltd)","(GlaxoSmithKline Consumer Healthcare)","(Kyowa Kirin Ltd)","(Internis Pharmaceuticals Ltd)","Morningside Healthcare Ltd"];
+var drugNames = [{
+  "drugName" : "Macrogol compound oral powder sachets NPF sugar free",
+  "drugReplace": "Macrogol Sachets"
+},{
+  "drugName" : "One To Be Taken Each Morning At Least 30 Minutes Before Breakfast, Caffeine-containing Drinks Or Other Medication",
+  "drugReplace" : "One each morning"
+},{
+  "drugName": "Fultium-D3",
+  "drugReplace": "colecalciferol"
+},{
+  "drugName" : "Vensir XL",
+  "drugReplace" : "Venlafaxine (Vensir) XL"
+}]
+function editList(){
+  /*
+   When meds are selected from list items they are pushed to a new array i.e. acutes selected will be pushed to acuteEdit[]
+  */
+  acuteEdit = [];
+  repeatEdit = [];
+  repeatEditNoDate = [];
+  discontinuedEdit = [];
+if(isDateCorrect == true){
+  for(i=0; i < acuteM.length; i++){
+    var x = document.getElementById('acuteChk'+i);
+    var chk = document.getElementById('acutechkNP'+i);
+    var xVal = x.value;
+    if(chk.checked == true){
+      arrayAcuteNP.push(xVal);
+      xVal = xVal + "<b>Not Prescribed</b>";
+    }
+    if(x.checked == true){
+     acuteEdit.push(xVal);
+    }
+  }
+}else if(isDateCorrect == false){
+  for(i=0; i < acutes.length; i++){
+    var x = document.getElementById('acuteChk'+i);
+    var chk = document.getElementById('acutechkNP'+i);
+    var xVal = x.value;
+    if(chk.checked == true){
+      arrayAcuteNP.push(xVal);
+      xVal = xVal + "<b>Not Prescribed</b>";
+    }
+    if(x.checked == true){
+     acuteEdit.push(x.value);
+    }
+  }
+}
+
+  for(i=0; i < repeats.length; i++){
+    var r = document.getElementById('repeatChk'+i);
+    var rNP = document.getElementById('chkNP'+i);
+
+    if(r.checked == true){
+      var re = r.value;
+      for(var fw = 0; fw < fluffWords.length; fw++){
+        re = re.replace(fluffWords[fw], '');
+      }for(var dn = 0; dn < drugNames.length; dn++){
+        re = re.replace(drugNames[dn].drugName, drugNames[dn].drugReplace);
+      }      
+
+      var epil = re.search("Epilim");
+        console.log(epil)
+      if(epil == -1){
+        re = re.replace(/\d\d\s(tablet)/g,'');
+        re = re.replace(/\d\d\d\s(tablet)/g,'');
+        re = re.replace(/\d\d\s(capsule)/g,'');
+        re = re.replace(/\d\d\d\s(capsule)/g,'');
+        re = re.replace(/\d\d\d\s(dose)/g,'');
+        re = re.replace(/\d\d\s(dose)/g,'');
+        re = re.replace(/\d\d\s(sachet)/g,'');
+        re = re.replace(/\d\s(x)\s\d\d\d\s(dose)/g,'');
+      }
+      if(rNP.checked == true){
+        arrayNP.push(re);
+        re = re + "<b>Not Prescribed</b>";
+      }
+      repeatEdit.push(re);
+      if(isNaN(re.charAt(0)) == false){
+        //only substr if position 0 in string is a number
+          repeatEditNoDate.push(re.substr(13));
+        }else{
+          repeatEditNoDate.push(re);
+        }
+    }
+  }
+  for(i=0; i<discontinued.length; i++){
+  	var d = document.getElementById('discChk'+i);
+  	if(d.checked == true){
+  		discontinuedEdit.push(d.value);
+  	}
+  }
+  document.getElementById('cont4').style.display = "none";
+  document.getElementById('cont5').style.display = "block";
+  if(navigator.userAgent.indexOf("Chrome") != -1 )//copy to clipboard button only works in chrome
+    {
+    document.getElementById('copyToClipboardBtn').style.display = "block";      
+  }
+}
+
+
+
+function createNote(){
+  //function to define end output of final note which is generated
+  
+  var otc = document.getElementById('OTCtxt').value;
+  if(otc.length > 0){
+    document.getElementById('outputOTC').innerHTML = "OTC/Herbal/Recreational: " + otc;
+  }
+  var allergyOutput = "Allergies: <ul>"
+  for(i=0; i <allergies.length; i++){
+    allergyOutput += "<li>" + allergies[i] + "</li>"
+  }
+  allergyOutput += "</ul>"
+  if(allergies.length == 0){
+    allergyOutput = "Allergies: NKDA";
+  }
+  document.getElementById('outputAllergies').innerHTML = allergyOutput;
+  var acuteOutput = "Acute Medications: <ul>"
+  for(i=0; i<acuteEdit.length; i++){
+    acuteOutput += "<li>" + acuteEdit[i] + "</li>"
+    }
+    acuteOutput += "</ul>";
+    
+    if(acuteEdit.length == 0){
+      acuteOutput = "No recent acute medications";
+    }
+    document.getElementById('outputAcutes').innerHTML = acuteOutput;
+  
+  /*
+  Repeat Section
+  There are two arrays one with no dates at start of arrays. It prints different one depending on checkbox status
+  */
+  //repeatEdit = repeatEdit.sort();
+  repeatEditNoDate = repeatEditNoDate.sort();
+  var noDatechk = document.getElementById('noDatechk')
+  var rptOutput = "Repeat Medications:  <ul>"
+  if(noDatechk.checked == false){
+    for(i=0; i<repeatEdit.length; i++){
+    rptOutput += "<li>" + repeatEdit[i]+ "</li>"
+    }
+  }else if(noDatechk.checked == true){
+    for(i=0; i<repeatEditNoDate.length; i++){
+    rptOutput += "<li>" + repeatEditNoDate[i]+ "</li>"
+    }
+  }
+  rptOutput += "</ul>";
+  document.getElementById('outputRepeats').innerHTML = rptOutput;
+  
+  var discOutput = "Discontinued Medications: <ul>"
+  for(i=0; i<discontinuedEdit.length; i++){
+      discOutput += "<li>" + discontinuedEdit[i] + "</li>"
+      }
+      discOutput += "</ul>";
+      if(discontinuedEdit.length == 0){
+        discOutput = " ";
+      }
+      document.getElementById('outputDisc').innerHTML = discOutput;  
+
+}
+function blisterPack(yn){
+  var bp = document.getElementById('blisterpack');
+  if(yn == "yes"){
+    bp.innerHTML = "Blister Pack: Yes"
+  }else if(yn == "no"){
+    bp.innerHTML = "Blister pack: No"
+  }
+}
+function back(){
+  document.getElementById('cont5').style.display = "none";
+  document.getElementById('cont4').style.display = "block";
+}
+function reset(){
+  //reload page
+  location.reload();
+}
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+
+function copyToClipboard(element_id){
+  var aux = document.createElement("div");
+  aux.setAttribute("contentEditable", true);
+  aux.innerHTML = document.getElementById(element_id).innerHTML;
+  aux.setAttribute("onfocus", "document.execCommand('selectAll',false,null)"); 
+  document.body.appendChild(aux);
+  aux.focus();
+  document.execCommand("copy");
+  document.body.removeChild(aux);
+}
+
+function doctorsNote(){
+  var NP = ""
+  for(var i = 0; i < arrayNP.length; i++){
+      NP += "<li>" + arrayNP[i] + "</li>";
+  }
+  var aNP = "";
+  for(var x = 0; x <  arrayAcuteNP.length; x++){
+      aNP += "<li>" + arrayAcuteNP[x] + "</li>";
+  }
+  NP = "Please Review the need to prescribe the following medications <ul>" + aNP + NP + "</ul>";
+  document.getElementById('doctorsJobsList').innerHTML = NP;
+}
+
+
+
+var pharmacies = ["Aigburth Pharmacy - FXP79","Aim Rx Ltd - FG440","AIM RX Ltd (Appleton Village Pharmacy) - FX408","Alexanders Pharmacy Ltd - FV492","Allied Pharmacies Ltd - FK405","Allisons Chemist - FH658","Alsager Pharmacy (Alsager) - FA749","Andrews Pharmacy - FH709","Anfield Pharmacy - FJJ64","Asda Pharmacy (Branch: 4145 - Upton) - FJH46","Asda Pharmacy (Branch: 4190 - Crewe) - FK144","Asda Pharmacy (Branch: 4259 - Breck Road) - FG850","Asda Pharmacy (Branch: 4361 - Birkenhead) - FC549","Asda Pharmacy (Branch: 4580 - Smithdown Road) - FJW44","Asda Pharmacy (Branch: 4585 - Southport) - FFE24","Asda Pharmacy (Branch: 4643 - Aintree) - FW001","Asda Pharmacy (Branch: 4645 - Hunts Cross) - FCN91","Asda Pharmacy (Branch: 4922 - Warrington) - FRQ87","Asda Pharmacy (Branch: 4929 - Runcorn) - FMJ67","Asda Pharmacy (Branch: 4930 - Winsford) - FK364","Asda Pharmacy (Branch: 4933 - Bromborough) - FT036","Asda Pharmacy (Branch: 4936) - FWP24","Asda Pharmacy (Branch: 4944 - Norris Green) - FM859","Asda Pharmacy (Branch: 4973 - Wallasey) - FF922","Asda Pharmacy (Branch: 4995 - St Helens) - FFF63","Asda Pharmacy (Branch: 5818 - Widnes) - FWD06","Asda Pharmacy (Branch: 5849 - Bootle) - FKT64","Asda Pharmacy (Branch: 5864 - Huyton Lane) - FG352","Asda Pharmacy (Branch: 5884 - Ellesmere Port) - FLV02","Aspire Pharmacy - FHH39","Assura Pharmacy (Branch: 706) - FXP85","Aston Chemists Ltd T/A Station Pharmacy - FV558","Banks Pharmacy - FAL89","Barnton Pharmacy (Runcorn Road) - FQD81","Baycliff Road Pharmacy - FJJ20","Belle Vale Healthcare Ltd (Belle Vale Pharmacy) - FTN88","Bispham Road Pharmacy - FE018","Blackheath Pharmacy - FJ202","Boggianos Ltd - FJ225","Boots UK Ltd (Branch: 1147 - Skelmersdale Concourse) - FK531","Boots UK Ltd (Branch: 1203 - Ormskirk Moor St) - FH903","Boots (Branch: 0272 - Chester Foregate St) - FT378","Boots (Branch: 0273 - Crewe Market St) - FCP79","Boots (Branch: 0461 - Winsford Dingle Walk) - FE685","Boots (Branch: 0827 - Liverpool Church Street) - FXV39","Boots (Branch: 0924 - Aigburth Road) - FYL72","Boots (Branch: 1113 - Formby Chapel Lane) - FN264","Boots (Branch: 1114 - Macclesfield Grosvenor) - FY700","Boots (Branch: 1117 - Chester The Forum Ctr) - FJ868","Boots (Branch: 1149 - Liverpool Waterloo) - FHM91","Boots (Branch: 1150 - Clayton Square) - FF015","Boots (Branch: 1151 - Runcorn Castlefields) - FF559","Boots (Branch: 1152 - Southport Chapel St) - FD635","Boots (Branch: 1159 - Walton Vale) - FVF47","Boots (Branch: 1161 - Birkenhead) - FC368","Boots (Branch: 1165 - Belle Vale) - FAQ22","Boots (Branch: 1179 - St Helens Church St) - FF360","Boots (Branch: 1191 - Warrington Gemini) - FJ729","Boots (Branch: 1194 - Newton Le Willows Market) - FNL49","Boots (Branch: 1195 - Wallasey) - FYV68","Boots (Branch: 1199 - Norris Green) - FEV79","Boots (Branch: 1208 - Princeway) - FJ085","Boots (Branch: 1221 - Wilmslow Grove St) - FPK73","Boots (Branch: 1222 - Congleton Bridge St) - FA539","Boots (Branch: 1234 - Castle Street) - FFM98","Boots (Branch: 1235 - Bootle The New Strand) - FRK88","Boots (Branch: 1236 - Liverpool Crosby) - FHK81","Boots (Branch: 1240 - Prescot Eccleston St) - FAN25","Boots (Branch: 1245 - Bromborough - The Rake) - FLM92","Boots (Branch: 1246 - Mossley Hill) - FT423","Boots (Branch: 1258 - Old Swan) - FLV18","Boots (Branch: 1262 - Liverpool Huyton) - FGX53","Boots (Branch: 1289 - Cheshire Street) - FTJ57","Boots (Branch: 1307 - Arrowe Park) - FN923","Boots (Branch: 1308 - Manor HC) - FCT19","Boots (Branch: 1352 - Runcorn Hallwood HC) - FRE44","Boots (Branch: 1387 - Greenbank) - FVR87","Boots (Branch: 1389 - Marybone) - FQM51","Boots (Branch: 1481 - Warrington Golden Square) - FEL21","Boots (Branch: 1599 - Seaforth Road) - FA731","Boots (Branch: 2017 - Nantwich Swine Market) - FHR75","Boots (Branch: 2020 - Runcorn Halton Lea) - FXD72","Boots (Branch: 2024 - Knutsford King St) - FPF22","Boots (Branch: 2026 - West Kirby The Crescent) - FJV77","Boots (Branch: 2027 - Moreton) - FLP52","Boots (Branch: 2030 - Northwich Witton St) - FVL43","Boots (Branch: 2031 - Heswall) - FV122","Boots (Branch: 2039 - Sandbach High St) - FVA90","Boots (Branch: 2116 - Ellesmere Prt Mercer Wlk) - FT867","Boots (Branch: 2129 - Fazakerley) - FK207","Boots (Branch: 2215 - Lymm The Cross) - FN185","Boots (Branch: 5168 - Bebington Teehey Lane) - FG049","Boots (Branch: 5169 - Rockferry) - FK272","Boots (Branch: 5170 - Prenton) - FQX26","Boots (Branch: 5171 - Bebington Church Road) - FY215","Boots (Branch: 5172 - Noctorum) - FL617","Boots (Branch: 5231 - Childwall) - FM249","Boots (Branch: 5260 - Smithdown Place) - FH645","Boots (Branch: 5261 - Booker Avenue) - FF987","Boots (Branch: 5262 - Warrington Manch RdAP262) - FKQ21","Boots (Branch: 5265 - Prenton - Holmlands) - FXX14","Boots (Branch: 5266 - Boaler Street) - FL048","Boots (Branch: 5268 - Fairfield) - FF769","Boots (Branch: 5269 - Litherland) - FEN99","Boots (Branch: 5290 - Neston) - FLF70","Boots (Branch: 5417 - Formby Elbow Lane) - FJV69","Boots (Branch: 5465 - Upton) - FMD34","Boots (Branch: 5580 - Chester Hoole) - FCC37","Boots (Branch: 5588 - Stockton Heath AP0588) - FVC77","Boots (Branch: 5602 - Southport Camb Rd AP0602) - FDV38","Boots (Branch: 5648 - City Walls Medical Centre) - FED51","Boots (Branch: 5650 - Runcorn High St) - FQ403","Boots (Branch: 5651 - Frodsham Church Street) - FT868","Boots (Branch: 5764 - London Road) - FMC89","Boots (Branch: 5765 - Greasby) - FM378","Boots (Branch: 5767 - Thingwall) - FQT68","Boots (Branch: 5768 - Maghull Cent) - FH796","Boots (Branch: 5769 - Halewood HC) - FV731","Boots (Branch: 5770 - Orrell Park) - FJJ30","Boots (Branch: 5771 - Southport Shakesp AP0771) - FVN86","Boots (Branch: 5773 - Maghull Westway) - FGN97","Boots (Branch: 5974 - Whiston HC) - FKM99","Boots (Branch: 5989 - Bidston) - FMR00","Boots (Branch: 6301 - Wilmslow Waitrose AP0105) - FH628","Boots (Branch: 6401 - Bromborough - Welton Road) - FC972","Boots (Branch: 6413 - Chester Greyhound Rp) - FX525","Boots (Branch: 6425 - Congleton Retail Park) - FE230","Boots (Branch: 6437 - Prescot Cables Rp) - FPX42","Boots (Branch: 6454 - Liverpool Aintree Rp) - FP502","Boots (Branch: 6475 - Cheshire Oaks) - FGJ24","Boots (Branch: 6478 - New Mersey) - FWG19","Boots (Branch: 6521 - Southport Central Sc) - FR460","Boots (Branch: 6549 - St Helens Ravenhead Park) - FK182","Boots (Branch: 6594 - Widnes Shopping Park) - FEH76","Boots (Branch: 6613 - Crewe Grand Junction Rp) - FJ562","Bounce Chemist (Prescot Road) - FA083","Bounce Chemist (Windsor St) - FE862","Bradleigh Road Pharmacy - FV823","Brian H Donlon Pharmacy Ltd - FR351","Bridge Road Chemist - FWK89","Burscough Pharmacy (Burscough) - FQJ64","Calea Uk Limited - FVG64","Cambridge Road Pharmacy - FNF94","Campbells Chemist - FCW66","Carringtons Pharmacy - FE310","Cedrics Chemist Ltd (London Road) - FWD81","Cedrics Chemist Ltd (Talbot Road) - FYA25","Central Pharmacy - FPN27","Chain Lane Pharmacy - FP586","Chain Lane Pharmacy - FTD96+","Chemist-4-U.com - FPQ59","Chester Care Centre - FH272","Clarks Pharmacy - FRR24","Claughton Partnership Ltd t/a Upton Road Pharmacy - FH556","Claughton Pharmacy - FHV83","Clear Chemist (RB Healthcare ltd) - FD553","Clear Pharmacy - FTG29","Cledford Pharmacy (Warmingham Lane) - FTT71","Click Trading Ltd - FE279","Cohens (Bridge Road) (Branch: 033) - FKF30","Cohens Chemist (Branch: 021 - Marian Sq) - FMD55","Cohens Chemist (Branch: 334 - Liverpool Road) - FP895","Cohens Chemist (Hollies Road) - FMD31","Cohens Chemist (Townsend Lane) - FM117","Cohens Chemist (Westbrook) - FQV12","Cohens Pharmacy (Branch: 307 - Broadway) - FQ635","Cohens (Branch: 481 - Townsend Lane) - FG058","Cohens (Branch: 709 - Everton) - FJH18","Cohens (Branch: 806 - Mere Lane) - FXK83","Cohens (Childwall) - FEN74","Cohens (Eaton Road) - FKE41","Cohens (Norris Green) - FL317","Cohens (Ropewalks) - FAF48","Coleman and Leighs Pharmacy - FYF27","Cookes Healthcare Ltd (Peelhouse Lane) - FCT70","Cookes Ltd (Albert Road) - FA414","Corkers Pharmacy Ltd - FV857","Corry's Chemist T/A Temple Pharmacy - FM813","Counter Chemist Direct Ltd (Ettiley Heath) - FAR48","Couper & Coulter Pharmacies Ltd (Handbridge Pharmacy) - FY785","Couper & Coulter Pharmacies Ltd (Old Chester Pharmacy) - FKF28","Crewe Complete Solutions (West Street Pharmacy) - FE323","Crimson Health Ltd - FWT89","Crosby Road Pharmacy (Sharief Pharmacy) - FK516","Dale Pharmacy - FC593","Dallam Pharmacy (Harrison Square) - FD639","Danebridge Pharmacy (Northwich) - FRW59","Daveys Chemist (Bluebell) - FNQ87","Daveys Chemist (Holt Road) - FRG94","Daveys Chemists (Kensington) - FK172","Daveys Pharmacy (Manor Farm) - FNJ80","David Stearne Pharmacy - FA563","David Stearne Pharmacy - FE748","Day Lewis Pharmacy (Branch: 655 - Readesmoor) - FJ457","Day Lewis PLC Aintree (Branch: 337 - Aintree) - FR433","Day Lewis PLC (Branch: 247 - Birkenhead) - FDQ38","Day Lewis PLC (Branch: 248 - Bebington) - FKE81","Day Lewis PLC (Branch: 263 - Liverpool, Wavertree) - FFN74","Day Lewis PLC (Branch: 317 - Liverpool, Thornton) - FAG89","Day Lewis PLC (Branch: 318 - Bootle) - FW117","Deeside Pharmacy (Wirral) - FKY30","Dempsey Pharmacy - FAK89","Derbyshire Pharmaceuticals Ltd - FTF41","Deysbrook Pharmacy - FRE10","DF Walker (Pharmacy) Ltd - FPH43","Ditton Pharmacy - FLP37","Donlon's Late Night Pharmacy - FCL78","Drake Pharmacy - FTT10","Dudleys Chemist - FNR55","Durning Pharmacy - FGK44","Eastfield Pharmacy (469 Manchester Road) - FLN85","Egremont Pharmacy - FWC29","Ellesmere Pharmacy (Ellesmere Port) - FC728","Elton Pharmacy (Elton) - FC441","Fairbreak Ltd - FGN94","Faith Pharmacy Ltd - FW716","Farley Chemist - FPC42","Fearns Pharmacy (Helsby) - FH107","Fingerpost Pharmacy - FGJ47","Fishlock Chemist - FHG54","Fishlock Chemists (Ainsdale) - FQD91","Formby Health Rooms and Pharmacy (Liverpool Road) - FE412","Forshaw's Pharmacy - FTM09","Four Acre Chemist - FGJ61","Galen Pharmacy (Neston) - FG425","Garrett Pharmacy (Western Avenue) - FF392","Garswood Pharmacy - FC084","Gateacre Park Pharmacy - FLP04","Gateley Pharmacy - FKQ07","Go Pharmacy (Erwood Street) - FGD48","Gordon Short Chemist - FQ364","Gorgemead Ltd T/A Cohens Chemist (Branch: 532) - FD446","Gorgemead Ltd t/a Cohens Chemist (Branch: 542 - Macclesfield) - FXD75","Grange Lane Pharmacy - FVP39","Green Cross Pharmacy - FWG07","Green Cross Pharmacy (Warrington) - FK402","Green Lane Pharmacy (Allerton Road) - FE162","Green Lane Pharmacy (Tuebrook) - FP252","Greencross Pharmacy (Breck Road) - FLC08","Greencross Pharmacy (Garston Old Road) - FQA29","Greencross Pharmacy (West Speke HC) - FAN04","Greenhey Pharmacy - FKL68","GSI Pharmacy - FVH87","Haddens Chemist - FVV55","Hale Villiage Pharmacy - FJH50","Halsall Pharmacy Ormskirk Healthcare Ltd - FJ533","Healthy Living Pharmacies Ltd (Crossens Pharmacy) - FR873","Healthy Living Pharmacies Ltd (Fylde Road Pharmacy) - FVM95","Heath Pharmacy - FCR74","Heatherlands Pharmacy - FDL69","Heatons Chemist - FVV96","Hesketh Bank Pharmacy - FPG01","Hesketh Park Pharmacy - FR639","Heswall Hills Pharmacy - FA057","Higgins Pharmacy - FFW97","Higher Bebington Pharmacy - FM405","Hightown Pharmacy - FEQ84","Hillside Pharmacy - FC257","Hirshman Chemist - FHW57","Hirshman chemist 2u (Dryblend Ltd) - FE651","Holland Pharmacy (Frodsham) - FVW60","Holmes Pharmacy (KelSall) - FAX82","Hood Manor Pharmacy - FR245","Hope Farm Pharmacy (Branch: 662 - Ellesmere Port) - FK817","Hub Pharmacy (Chapelford) - FE361","Hub Pharmacy (Manchester Road) - FK321","Hub Pharmacy (Thingwall) - FPK04","Hub Pharmacy (Tranmere) - FPG31","Hughes Chemist - FYT65","Ian Littler Pharmacy (Tarvin) - FCX15","Imaan Health care Ltd T/A Liverpool Road Pharmacy (Liverpool Rd) - FVN26","IPharm - FJC66","Irby Pharmacy - FCN12","J G Palin Chemist - FV886","J Halton - FE703","Jacksons of Seacombe Ltd (St Paul's Pharmacy) - FHQ81","Jacksons (St Helens) - FCR98","JH Daveys Chemists (Dinas) - FET91","John Hughes - FL713","Jolleys Chemist - FX195","Jones Pharmacy - FK481","Kay's Chemist (Netherley) - FPA31","Kays Chemist (Belle Vale) - FRH55","Kays Chemist (London Road) - FGA31","Keen Pharmacy - FTD38","Kellys Pharmacy - FLT52","Kensington Neighbourhood HC Pharmacy - FKJ00","Kingsway Pharmacy (Kingsway Pharmacy) - FTA50","Knights Oakley Pharmacy - FDE07","Knowsley Road Pharmacy - FG835","Leasowe Pharmacy - FR600","Lees Pharmacy Ltd - FV230","Little Sutton Pharmacy (Ellesmere Port) - FLF82","Lloydspharmacy - FFC25","LloydsPharmacy (Branch: 0222 - Newton Le Willows) - FYR96","LloydsPharmacy (Branch: 0291 - Hunts Cross) - FJD54","LloydsPharmacy (Branch: 0301 - Tuebrook) - FJ411","LloydsPharmacy (Branch: 0303 - West Derby Road) - FM098","LloydsPharmacy (Branch: 0308 - Warrington) - FTD67","LloydsPharmacy (Branch: 0318 - Woolton Street) - FM281","Lloydspharmacy (Branch: 0331) - FPN00","Lloydspharmacy (Branch: 0337) - FYM11","LloydsPharmacy (Branch: 0344 - Pilch Lane) - FXH59","LloydsPharmacy (Branch: 0860 - Rainhill) - FR875","LloydsPharmacy (Branch: 5052 - Chester Sainsburys) - FH722","LloydsPharmacy (Branch: 5081 - Sainsburys East Prescot Road) - FLD72","LloydsPharmacy (Branch: 5084 - Ellesmere Port Sainsburys) - FTG09","LloydsPharmacy (Branch: 5147 - Sainsbury's Woolton) - FF874","LloydsPharmacy (Branch: 5156 - Macclesfield Sainsburys) - FKG50","LloydsPharmacy (Branch: 5169 - Nantwich Sainsburys) - FMV22","LloydsPharmacy (Branch: 5181 - Northwich Sainsburys) - FW140","LloydsPharmacy (Branch: 5199 - Sainsbury's Rice Lane) - FT610","LloydsPharmacy (Branch: 5216 - Southport Sainsburys) - FPW63","LloydsPharmacy (Branch: 5252 - Upton Sainsburys) - FW404","LloydsPharmacy (Branch: 5258 - Warrington Sainsburys) - FEW87","LloydsPharmacy (Branch: 6102 - Lymm) - FLA08","LloydsPharmacy (Branch: 6103 - Penketh) - FT175","LloydsPharmacy (Branch: 6104 - Orford) - FNV60","LloydsPharmacy (Branch: 6109 - Padgate) - FXY88","LloydsPharmacy (Branch: 6127 - Whitby) - FJ138","LloydsPharmacy (Branch: 6155 - Middlewich Road) - FEA07","LloydsPharmacy (Branch: 6159 - Great Sutton) - FDE11","LloydsPharmacy (Branch: 6342 - Junction Lane) - FP100","LloydsPharmacy (Branch: 6343 - Holmes Chapel) - FT884","LloydsPharmacy (Branch: 6425 - Congleton) - FHM07","LloydsPharmacy (Branch: 6503 - Mill Street) - FJG87","Lloydspharmacy (Branch: 6540) - FFJ25","LloydsPharmacy (Branch: 6601 - Stockton Heath) - FDG62","Lloydspharmacy (Branch: 6602) - FG647","LloydsPharmacy (Branch: 6603 - West Kirby) - FJC28","LloydsPharmacy (Branch: 6606 - Allerton Road (closed)) - FXQ79","LloydsPharmacy (Branch: 6705 - Arrowe Park) - FWP65","LloydsPharmacy (Branch: 6720 - Sutton) - FC319","LloydsPharmacy (Branch: 6859 - Bootle) - FNN83","LloydsPharmacy (Branch: 6861 - County Road) - FF492","LloydsPharmacy (Branch: 6862 - Cherry Lane) - FC765","LloydsPharmacy (Branch: 6864 - Muirhead Avenue East) - FQ068","LloydsPharmacy (Branch: 6865 - Church Road) - FG600","LloydsPharmacy (Branch: 6866 - Huyton) - FKJ69","LloydsPharmacy (Branch: 6867 - Lower House Lane) - FFP95","LloydsPharmacy (Branch: 6868 - Mill Lane) - FX551","LloydsPharmacy (Branch: 6869 - Old Swan) - FQA76","LloydsPharmacy (Branch: 6873 - Speke) - FVD58","LloydsPharmacy (Branch: 6874 - Hough Green) - FT619","LloydsPharmacy (Branch: 6956 - Prospect Point) - FAV31","LloydsPharmacy (Branch: 7112 - Langley Close) - FAT68","LloydsPharmacy (Branch: 7203 - Townsend Lane) - FWX28","LloydsPharmacy (Branch: 7209 - Lime Avenue) - FGK17","LloydsPharmacy (Branch: 7221 - Victoria Health Centre) - FE351","LloydsPharmacy (Branch: 7226 - Northwich Road) - FD178","LloydsPharmacy (Branch: 7374 - Wilmslow) - FG613","LloydsPharmacy (Branch: 7499 - Runcorn Old Town) - FXJ61","London Road Pharmacy - FD484","Longsters Pharmacy - FLQ55","Lydiate Pharmacy - FNV90","M & A Weinronk (Pensby) - FWA62","M Saleem Dispensing Chemist - FRM99","Manor Pharmacy - FXE80","Mary Davey Chemists Ltd - FNV10","Masons Pharmacy - FWC76","McCanns Pharmacy (Aigburth Road) - FPE84","McCanns Pharmacy (Sandringham MC) - FQC85","McDonnell's Pharmacy Ltd - FW519","McKeevers (Greasby) - FXE59","McKeevers (Walton) - FG199","Meadows Pharmacy - FTG91","Melwood Pharmacy - FAV99","Merton Chemist - FMK87","Mill Lane Pharmacy (Mill Lane) - FE584","Moreton Pharmacy - FTH62","Morrisons In-store Pharmacy (Branch: 213) - FTD78","Morrisons Pharmacy (Branch: 131 - Mill Lane) - FWN30","Morrisons Pharmacy (Branch: 220 - West Kirby) - FTG19","Morrisons Pharmacy (Branch: 255 - Nantwich) - FL674","Mossley Pharmacy - FQ018","Moston Pharmacy Services (Dragons Lane) - FMA50","MR Jacobs Pharmacy - FCT55","Murdishaw Pharmacy - FXL15","Neils Pharmacy - FXA18","Netherton Pharmacy - FWW27","Nicholsons Pharmacy - FR844","Norman Pharmacy - FHK94","Now Pharmacy - FTQ25","Oakley Pharmacy (Date of Change 06.10.2016) - FF437+","Ormskirk Pharmacy - FRQ00","Orrell Park Pharmacy - FQX60","Owens Chemist (Saltney) - FLM30","P Robinson Pharmacy - FMN22","P&C Benson Ltd (West Heath Pharmacy) - FWD48","PA White - FKA99","Park Street Pharmacy - FVJ86","Peak Pharmacy (CHUR) - FEK41","Peak Pharmacy (MACC) - FAY71","Peak Pharmacy (PARR) - FAJ66","Peak Pharmacy (RUNC) - FHT09","Peter Jamieson Ltd - FEP75","Pharmacy First - FT724","Pharmacy On-line (Southport) - FF349","Pharmacy Plus Ltd - FN615","Pharmore Plus - FQM95","Phillips Chemist - FGH61","Pinnacle ITK Test Pharmacy Two - ITK02","Pondas Chemists Ltd (Cheviot Square) - FP677","Pondas Chemists Ltd (Queens Parade) - FQJ12","Practice Pharmacy Direct - FMT74","Prenton Dell Pharmacy - FG595","Prescriptions Pharmacy (The Kiosk) - FWF82","Priya Limited - FT640","Richard Clitherow Ltd - FLD23","Robson Street Pharmacy - FTR83","Rowlands Pharmacy (Branch: 1009 - Tarporley (Branch 1009)) - FHP16","Rowlands Pharmacy (Branch: 1016 - Bromborough) - FMP28","Rowlands Pharmacy (Branch: 1018 - Crewe (Branch 1018)) - FD363","Rowlands Pharmacy (Branch: 1022 - Middlewich (Branch 1022)) - FDF24","Rowlands Pharmacy (Branch: 1028 - Hartford (Branch 1028)) - FDJ38","Rowlands Pharmacy (Branch: 1030 - Sandiway (Branch 1030)) - FJ922","Rowlands Pharmacy (Branch: 1033 - Upton (Branch 1033)) - FY543","Rowlands Pharmacy (Branch: 1037 - Kings Drive (Branch 1037)) - FVD02","Rowlands Pharmacy (Branch: 1038 - Haslington (Branch 1038)) - FFN94","Rowlands Pharmacy (Branch: 1041 - Upholland (Branch 1041)) - FR772","Rowlands Pharmacy (Branch: 1072 - Parkfield) - FVD93","Rowlands Pharmacy (Branch: 1073 - NewFerry) - FA689","Rowlands Pharmacy (Branch: 1081 - Speke Health Centre) - FGL64","Rowlands Pharmacy (Branch: 1082 - Morrisons Speke) - FHV61","Rowlands Pharmacy (Branch: 1145 - Widnes (Branch 1145)) - FE809","Rowlands Pharmacy (Branch: 1147 - Hope Farm (Branch 1147)) - FG541","Rowlands Pharmacy (Branch: 1149 - Ellesmere Port (Branch 1149)) - FVY31","Rowlands Pharmacy (Branch: 1150 - Poynton (Branch 1150)) - FVQ34","Rowlands Pharmacy (Branch: 1153 - Northgate Ave (Branch 1153)) - FL656","Rowlands Pharmacy (Branch: 1181 - Ashurst (Branch 1181)) - FHQ20","Rowlands Pharmacy (Branch: 1200 - Princes Pavement) - FR713","Rowlands Pharmacy (Branch: 1201 - Aughton (Branch 1201)) - FDY91","Rowlands Pharmacy (Branch: 1202 - Wilderspool) - FH372","Rowlands Pharmacy (Branch: 1203 - Castletown (Branch 1203)) - FYG87","Rowlands Pharmacy (Branch: 1204 - Oxton) - FRR82","Rowlands Pharmacy (Branch: 1205 - Townsend Avenue) - FHT20","Rowlands Pharmacy (Branch: 1206 - Tarleton (Branch 1206)) - FDF12","Rowlands Pharmacy (Branch: 1207 - Maghull (Branch 1207)) - FML51","Rowlands Pharmacy (Branch: 1210 - Lincoln Road (Branch 1210)) - FXA37","Rowlands Pharmacy (Branch: 1211 - Folly Lane) - FCC94","Rowlands Pharmacy (Branch: 1213 - Hesketh & Walker (Branch 1213)) - FQT26","Rowlands Pharmacy (Branch: 1214 - 157 Lodge Lane) - FXF64","Rowlands Pharmacy (Branch: 1216 - Derby Lane) - FTJ26","Rowlands Pharmacy (Branch: 1217 - Garston) - FFG70","Rowlands Pharmacy (Branch: 1218 - Great Homer Street) - FV776","Rowlands Pharmacy (Branch: 1219 - Huyton (Branch 1219)) - FGN93","Rowlands Pharmacy (Branch: 1220 - Longmoor Lane) - FLA78","Rowlands Pharmacy (Branch: 1221 - Melling (Branch 1221)) - FFT27","Rowlands Pharmacy (Branch: 1222 - Myrtle Street) - FRJ38","Rowlands Pharmacy (Branch: 1223 - Leeside Avenue (Branch 1223)) - FE860","Rowlands Pharmacy (Branch: 1224 - Picton Road) - FTQ93","Rowlands Pharmacy (Branch: 1225 - Rock Ferry) - FT638","Rowlands Pharmacy (Branch: 1227 - Tower Hill (Branch 1227)) - FRQ57","Rowlands Pharmacy (Branch: 1228 - Ormskirk (Branch 1228)) - FLA57","Rowlands Pharmacy (Branch: 1229 - 6 Lodge Lane) - FFQ78","Rowlands Pharmacy (Branch: 1231 - Broad Lane (Branch 1231)) - FF462","Rowlands Pharmacy (Branch: 1232 - Tanners Lane (Branch 1232)) - FXX89","Rowlands Pharmacy (Branch: 1233 - Thelwall Lane) - FPA75","Rowlands Pharmacy (Branch: 1234 - Wallasey Village (Branch 1234)) - FDA14","Rowlands Pharmacy (Branch: 1236 - Copplehouse Lane (Branch 1236)) - FA194","Rowlands Pharmacy (Branch: 1237 - Westvale (Branch 1237)) - FX538","Rowlands Pharmacy (Branch: 1238 - Greenway Road ) - FCX09","Rowlands Pharmacy (Branch: 1254 - Ashtons) - FAW33","Rowlands Pharmacy (Branch: 1284 - Moreton) - FME16","Rowlands Pharmacy (Branch: 1293 - Park Chemist) - FHD28","Rowlands Pharmacy (Branch: 1344 - Formby (Branch 1344)) - FG584","Rowlands Pharmacy (Branch: 1345 - Newton Le Willows (Branch 1345)) - FDJ91","Rowlands Pharmacy (Branch: 1346 - Thatto Heath (Branch 1346)) - FA258","Rowlands Pharmacy (Branch: 1347 - Southport Aughton Road) - FDT94","Rowlands Pharmacy (Branch: 1348 - Litherland (Branch 1348)) - FGK19","Rowlands Pharmacy (Branch: 1368 - Chanins) - FX032","Rowlands Pharmacy (Branch: 1374 - Birkdale (Branch 1374)) - FCP25","Rowlands Pharmacy (Branch: 1393 - Bollington (Branch 1393)) - FHE06","Rowlands Pharmacy (Branch: 1405 - Prescot (Branch 1405)) - FGN13","Rowlands Pharmacy (Branch: 1453 - Dingle Bells (Branch 1453)) - FCT61","Rowlands Pharmacy (Branch: 1454 - Field Road) - FNC84","Rowlands Pharmacy (Branch: 1473 - Four Acre (Branch 1473)) - FLG77","Rowlands Pharmacy (Branch: 1475 - Knutsford (Branch 1475)) - FM557","Rowlands Pharmacy (Branch: 1477 - Dingle) - FG222","Rowlands Pharmacy (Branch: 1480 - St Chads (Branch 1480)) - FJJ96","Rowlands Pharmacy (Branch: 1482 - Market Square (Branch 1482)) - FA404","Rowlands Pharmacy (Branch: 1483 - Guardian Street (Branch 1483)) - FXH02","Rowlands Pharmacy (Branch: 1485 - Aigburth Road) - FK533","Rowlands Pharmacy (Branch: 1487 - Orford (Branch 1487)) - FXV35","Rowlands Pharmacy (Branch: 1490 - Canute Place (Branch 1490)) - FPN79","Rowlands Pharmacy (Branch: 1524 - Norris Green) - FLA68","Rowlands Pharmacy (Branch: 1529 - Leslie Road (Branch 1529)) - FW107","Rowlands Pharmacy (Branch: 1534 - Oaklands (Branch 1534)) - FFG92","Rowlands Pharmacy (Branch: 1538 - Pilch Lane) - FHH38","Rowlands Pharmacy (Branch: 1547 - Digmoor (Branch 1547)) - FXF02","Rowlands Pharmacy (Branch: 1548 - Skelmersdale (Branch 1548)) - FT195","Rowlands Pharmacy (Branch: 1549 - Priory Road) - FNW59","Rowlands Pharmacy (Branch: 1550 - Kennelwood Avenue (Branch 1550)) - FX450","Rowlands Pharmacy (Branch: 1551 - Northwood) - FPM61","Rowlands Pharmacy (Branch: 1553 - Hillside Health Centre (Branch 1553)) - FC861","Rowlands Pharmacy (Branch: 1607 - Internet Pharmacy (Branch 1607)) - FK878","Rowlands Pharmacy (Branch: 1642 - Oxton Balls Road) - FL331","Rufford Pharmacy - FGL38","Rydale Chemists Ltd (Burtonwood) - FL789","Rydale Pharmacy (Crewe) - FC111","Ryders Chemist Ltd - FN232","Salus Pharmacy - Closed (Closed) - FP240","Salus Pharmacy Ltd - FEP14","Saughall Pharmacy (Chester) - FFP49","Sean Brady Pharmacy (Rainhill Hop House Corner) - (B1759)","Sedem Pharmacy (Huyton) - FQC25","Sedem Pharmacy (Bousfield HC) - FYM17","Sedem Pharmacy (County Road) - FNR77","Sedem Pharmacy (Derby Lane) - FWX94","Sedem Pharmacy (Longview) - FXV19","Sedem Pharmacy (Southport) - FKY48","Sedem Pharmacy (Stanley Road) - FJD74","Sedem Pharmacy (Walton Road) - FLT32","Sedem Pharmacy (Westminster Road) - FC339","Sefton Park Pharmacy - FJ489","Simply Pharmacy - FLH47","SK Chemist - FRR18","Smartts Chemist - FG091","Somerville Pharmacy - FNN81","Speeds (Minerva Avenue) - FDP63","St Helens Millennium Centre Pharmacy - FWE18","St Helens Pharmacy Ltd T/A Hoggs Chemist (Northwich) - FXR69","St Helens Pharmacy (Duke Street) - FCJ08","St Hilarys Pharmacy - FTM81","St Marks Pharmacy - FJM28","Stanney Lane Chemist (Ellesmere Port) - FC562","Station Pharmacy (Maghull) - FDC18","Station Pharmacy (Orrell Ln) - FHK54","Stellar Medical Ltd (T/A Atlas Pharmacy) - FVA65","Stephens Pharmacy - FKJ51","Stockbridge Pharmacy - FK775","Stockton Heath Pharmacy (Branch: 668 - Stockton Heath) - FWK62","Strachans Chemist - FFG82","Sugar Lane Pharmacy - FLF67","Superdrug inside Savers (Branch: 0240 - Warrington C'Edge) - FME80","Superdrug Pharmacy (Branch: 0095 - Warrington) - FM011","Superdrug Pharmacy (Branch: 0191 - Runcorn) - FDX88","Superdrug Pharmacy (Branch: 0313 - Southport) - FC720","Superdrug Pharmacy (Branch: 0385 - Ellesmere Port) - FF950","Superdrug Pharmacy (Branch: 0410 - Huyton) - FXQ88","Superdrug Pharmacy (Branch: 0522 - Chester) - FY420","Superdrug Pharmacy (Branch: 0613 - Liverpool) - FKY37","Superdrug Pharmacy (Branch: 0729 - Congleton) - FLQ41","Superdrug Pharmacy (Branch: 0943 - Birkenhead) - FFP67","Superdrug Pharmacy (Branch: 0982 - Bootle) - FN813","Sutton Pharmacy (Ellesmere Port) - FJR60","Swettenham Chemists Ltd (4 The Parade) - FK874","Swettenham Chemists Ltd (95 Kingsway) - FPP41","Swettenham Chemists Ltd (Bromborough) - FC329","Swettenham Chemists Ltd (Rock Ferry) - FQ535","Swettenham Chemists Ltd (Tranmere) - FMP76","Taylors Pharmacy - FP729","Tesco Instore Pharmacy (Southport) (Branch: 3193) - FXV06","Tesco Instore Pharmacy - FWT55","Tesco Instore Pharmacy (Branch: 2022 - Allerton) - FMJ13","Tesco Instore Pharmacy (Branch: 2098 - Birkenhead) - FFJ15","Tesco Instore Pharmacy (Branch: 2261 - Frodsham Street) - FXP75","Tesco Instore Pharmacy (Branch: 2343 - Congleton) - FTX10","Tesco Instore Pharmacy (Branch: 2672 - Heswall) - FDL01","Tesco Instore Pharmacy (Branch: 2876 - Macclesfield) - FYD59","Tesco Instore Pharmacy (Branch: 2993 - Old Swan) - FD864","Tesco Instore Pharmacy (Branch: 3065 - Prescot) - FPJ98","Tesco Instore Pharmacy (Branch: 3345 - Warrington) - FP793","Tesco Instore Pharmacy (Branch: 6296 - Toxteth) - FXN75","Tesco Instore Pharmacy (Branch: 6419 - Crewe) - FN553","Tesco Instore Pharmacy (Branch: 6477 - Widnes) - FJA60","Tesco Instore Pharmacy (Branch: 6504 - St Helens) - FKK25","Tesco Instore Pharmacy (Manchester Road) - FKF96","Tesco Instore Pharmacy (Wilmslow) - FGH93","Tesco Instore Pharmacy (Woolton) - FK792","The Co-operative Pharmacy (Branch: 228518) - FCM59","The Co-operative Pharmacy (Branch: 228528) - FPG22","The Co-operative Pharmacy (Branch: 228545) - FRN09","The Pharmacy Bebington - FLW57","The Pharmacy (Farndon) - FF019","The Prescription Service - FC551","The Prescription Service - FJW21","The Village Pharmacy (Macclesfield) - FNQ84","The Village Pharmacy (Waverton) - FX021","Thomas Brown Pharmacy Ltd - FD825","Tiffenbergs Chemist - FF857","Tims & Parker Pharmacy (CULCH) - FQX29","Tops Pharmacy - FHJ15","Townfield Pharmacy - FLX37","Tree Tops Pharmacy - FDF46","Tytherington Pharmacy - FH099","Udani Chemist - FAH64","Upton Rocks Pharmacy - FTW03","Valley Pharmacy - FXG93","Vicars Cross Pharmacy (Chester) - FAJ98","Victoria Central Health Centre - FNE27","Victoria Pharmacy (Wallasey) - FCC27","Vittoria Healthcare Limited (Birkenhead Pharmacy) - FKJ03","Vittoria Pharmacy (Birkenhead) - FQQ27","Wallasey Village Pharmacy - FKE51","Watterson Pharmacy - FHN18","Well - Lovely Lane (Branch: 224334 - Baths Health & Well Being Centre) - FAJ51","Well (Branch: 200392 - Orford - Capesthorne Road) - FM256","Well (Branch: 200393 - Widnes - Peel House Medical Plaza) - FMJ48","Well (Branch: 200394 - Runcorn - Grangeway) - FEX76","Well (Branch: 200395 - Croxteth - Croxteth HC) - FPY11","Well (Branch: 200396 - Birchwood - Benson Road) - FN408","Well (Branch: 200401 - Winsford - Winsford HC) - FQN76","Well (Branch: 200402 - Moreton - Pasture Road HC) - FG244","Well (Branch: 200403 - Upton - Wealstone Lane) - FTT01","Well (Branch: 200405 - Culcheth - Lodge Drive) - FTM77","Well (Branch: 200406 - Appleton - Dudlow Green Road) - FPX39","Well (Branch: 200768 - Crewe - Dunwoody Way) - FNP97","Well (Branch: 220457 - Congleton - Park Lane) - FJP37","Well (Branch: 220474 - Alsager - Lawton Road) - FPY16","Well (Branch: 223023 - Warrington - Fearnhead Cross) - FWX22","Well (Branch: 223032 - Macclesfield - Sunderland Street) - FTL52","Well (Branch: 224055 - Northwich - Drillfield Road) - FG268","Well (Branch: 224080 - Wistaston - The Precinct) - FLT97","Well (Branch: 224097 - Barnton - Oakwood MC) - FVG71","Well (Branch: 224099 - St Helens - Bickerstaffe Street) - FKJ71","Well (Branch: 224101 - Rainford - 36 Church Road) - FLM86","Well (Branch: 224103 - Sandbach - Ashfields MC) - FKR18","Well (Branch: 224193 - Macclesfield - 209 Park Lane) - FM082","Well (Branch: 224214 - Rainford - 18 Church Road) - FLQ60","Well (Branch: 224331 - Warrington - Manchester Road) - FR798","Well (Branch: 224333 - Warrington - Legh Street) - FAA49","Well (Branch: 224422 - Wilmslow - Kenmore HC) - FVC44","Well (Branch: 224423 - Wilmslow - Chapel Lane HC) - FW859","Well (Branch: 224424 - Wilmslow - Lindow Parade) - FL505","Well (Branch: 224426 - Macclesfield - Bollin House) - FTH54","Well (Branch: 224463 - Poynton - Park Lane) - FV704","Well (Branch: 224486 - St Helens - Lowe House HC) - FAH10","Well (Branch: 224487 - St Helens - Mill Street Medical Centre) - FHA50","Well (Branch: 224537 - Handforth - 110 Wilmslow Road) - FC072","Well (Branch: 224538 - Handforth - Wilmslow Road HC) - FX747","Well (Branch: 225482 - Disley - Fountain Square) - FG757","Well (Branch: 225825 - Billinge - Health Centre) - FMK89","Well (Branch: 225833 - Billinge - Rainford Road) - FNN55","Well (Branch: 228510 - Alsager - Alsager HC) - FG337","Well (Branch: 228519 - Chester - Garden Lane MC) - FL226","Well (Branch: 228520 - Chester - Fountains MC) - FJX71","Well (Branch: 228523 - Congleton - Mill Street) - FT080","Well (Branch: 228524 - Crewe - Brookhouse Drive) - FLQ25","Well (Branch: 228525 - Crewe - Hungerford MC) - FDC53","Well (Branch: 228527 - Crewe - Nantwich Road) - FYR66","Well (Branch: 228530 - Davenham - Church Street) - FYQ20","Well (Branch: 228532 - Ellesmere Port - Loxdale Drive) - FE729","Well (Branch: 228533 - Ellesmere Port - Overpool Road) - FN526","Well (Branch: 228534 - Ellesmere Port - Church Parade) - FPD14","Well (Branch: 228539 - Hoylake - Market Street) - FNT31","Well (Branch: 228540 - Huyton - Liverpool Road ) - FED34","Well (Branch: 228542 - Malpas - The Cross) - FF812","Well (Branch: 228543 - Mobberley - Town Lane) - FNA21","Well (Branch: 228544 - Nantwich - Beam Street) - FJR86","Well (Branch: 228546 - Nantwich - Church View MC) - FPL12","Well (Branch: 228547 - Northwich - Witton Street) - FY463","Well (Branch: 228548 - Northwich - Kingsmead Square) - FX561","Well (Branch: 228551 - Pensby - Pensby Road) - FPM20","Well (Branch: 228552 - Sandbach - The Commons) - FHN37","Well (Branch: 228554 - Shavington - Rope Green MC) - FHC12","Well (Branch: 228558 - Tattenhall - High Street) - FA875","Well (Branch: 228562 - Wharton - Wharton Primary HC) - FJA52","Welshs Chemist - FE719","West Bank Pharmacy - FVK97","Westminster Park Pharmacy Ltd - FLL40","Whitworth Chemists Ltd (Moore Road) - FAC79","Whitworth Chemists Ltd (Norwood Avenue) - FW217","Whitworth Chemists Ltd (Old Hall Farm Business Park) - FFV14","Willaston Pharmacy (Neston Road) - FCT37","Wilsons Chemist (West Kirby) - FMK56","Wise Pharmacy Ltd (Sandbach) - FVR81","Wise Pharmacy (Crow Wood) - FAG38","Wise Pharmacy (Halton Brook) - FCL67","Wise Pharmacy (Jenson Court) - FQH59","Wise Pharmacy (Windmill Hill) - FH435","Woodvale Pharmacy - FFK02","Woolton Late Night Pharmacy - FW234","WS Young Pharmacy (Heath Lane) - FVP67","WS Young Pharmacy (Hoole Lane) - FFY48","Wyn Ellis and Son Pharmacy - FWD11","Hills Pharmacy (Branch: 6126) - FER33","Hub Pharmacy (Barrow Hall (Closed)) - FKP48","Netherton Park Pharmacy (Closed) - FKN70","Sainsburys (Branch: 5052 - Chester) - FH722+","Sainsburys (Branch: 5084 - Ellesmere Port) - FTG09+","Sainsburys (Branch: 5156 - Macclesfield) - FKG50+","Sainsburys (Branch: 5169 - Nantwich) - FMV22+","Aintree University Hospital - REM00","Alder Hey Hospital - RBS","Ashcroft Chemist - FJN69","Cheshire and Wirral Partnership NHS Foundation Trust - RXA","Countess of Chester Hospital - RJR","Euro Chemist - FYQ87","Halton CCG Medicines Management","Leftwich Pharmacy (Northwich) - FXV57","Leighton Hospital (Mid Cheshire Hospitals NHS Foundation Trust) - RBT","Liverpool Heart and Chest Hospital - RBQ","Liverpool Test Provider - LIVTEST","North West Boroughs Healthcare - RXR","RiteCare Pharmacy - FFG85","Riverside Pharmacy - FPP13","Royal Liverpool and Broadgreen University Hospital (RLBUHT) - RQ6","Southport and Ormskirk Hospital NHS Foundation Trust (Southport) - RVY","St Helens and Knowsley Hospital - RBN","Test Hospital","Test Pharmacy Chester Service","Test Pharmacy North West Boroughs","Test Provider (NorthWest Coast AHSN) - PHO71X","Test Video Pharmacy - VHD05","Warrington Hospital - RWWWH","Woolleys Internet Pharmacy (Southport) - FVN04","Yew Tree Chemist - FH795"];
+function generatePharmacyList(){
+  var pharmStr = "";
+  for(var i=0; i < pharmacies.length; i++){
+      pharmStr += "<li class='list-group-item' onclick='addPharmacy("+i+")'>" + pharmacies[i] + "</li>";
+  }  
+  document.getElementById("pharmacyList").innerHTML = pharmStr;
+}
+
+$(document).ready(function(){
+  $("#pharmacyInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#pharmacyList li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+function addPharmacy(id){
+  document.getElementById('pharmacyDetails').innerHTML = pharmacies[id];
+  $('#pharmacyModal').modal('hide');
+}
+
+function printNote(){
+  var str="<thead><tr><th>Medication</th></tr></thead><tbody>";
+  str+= "<tr><td><b>Acute Medications</b></td></tr>";
+  for(let i=0; i < acuteEdit.length; i++){
+    str+= '  <tr><td>'+acuteEdit[i]+'</td><td><input type="checkbox"></input></td></tr>'
+  }
+  str+= "<tr><td><b>Repeat Medications</b></td></tr>";
+  for(let i=0; i <repeatEdit.length; i++){
+    str+= '  <tr><td>'+repeatEdit[i]+'</td><td><input type="checkbox"></input></td></tr>'
+  }
+  str += "</tbody>";
+ document.getElementById("printTable").innerHTML = str;
+ console.log("str");
+}
+
+
+document.getElementById("sendToPrint").onclick = function () {
+    printElement(document.getElementById("printThis"));
+}
+
+function printElement(elem) {
+    var domClone = elem.cloneNode(true);
+    
+    var $printSection = document.getElementById("printSection");
+    
+    if (!$printSection) {
+        var $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+    
+    $printSection.innerHTML = "";
+    $printSection.appendChild(domClone);
+    window.print();
+}
+
+</script>	
+
+</body>
+</html>
+
+
